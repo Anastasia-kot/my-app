@@ -1,0 +1,18 @@
+.message{
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width:  150px;
+    padding:5px;
+}
+.myMessage { 
+    margin-right: auto;
+    background-color: rgb(97, 70, 29);
+
+}
+.hisMessage{
+    margin-left: 200px;
+    padding-left: 200px;
+
+}

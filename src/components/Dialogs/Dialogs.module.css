@@ -1,0 +1,9 @@
+.dialogsContent {
+    color:beige;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.button {
+    margin: 5px;
+}

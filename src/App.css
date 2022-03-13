@@ -1,0 +1,18 @@
+.page-wrapper{
+  display: grid;
+   grid-template-columns: 2fr 10fr;
+   grid-template-rows: 50px 1fr;
+   grid-template-areas: 
+            "h h"
+            "n p";
+  width: 1000px;
+  margin: 0 auto;
+}
+
+
+
+
+.mainContent{
+  grid-area:p;
+  background-color: blueviolet;
+}
