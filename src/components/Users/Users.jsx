@@ -7,8 +7,11 @@ const Users = () => {
     return (
 
         <div>
-            Some users
+            <h1>Some users</h1>
+            
+            <button>Load users</button>
         </div>
+       
 
     );
 }
