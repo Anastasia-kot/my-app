@@ -4,5 +4,20 @@
 }
 
 .userCard {
- margin-bottom: 15px;   
+ margin: 5px;
+  
+}
+
+.userCardContainer {
+ margin: 30px;   
+}
+
+.selected {
+ font-weight: bold;   
+}
+span {
+    cursor:pointer;
+}
+span:nth-child(5) {
+    margin-right: 30px;
 }
