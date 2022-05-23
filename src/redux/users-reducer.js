@@ -48,7 +48,7 @@ const usersReducer = (state = initialState, action) => {
 
         case SET_CURRENT_PAGE: 
             return {
-                ...state, currentPage: action.currentPage
+                ...state, currentPage: action.newCurrentPage
             };
 
         case SET_TOTAL_USERS_COUNT:
@@ -64,7 +64,7 @@ const usersReducer = (state = initialState, action) => {
 export let followAC = (userId) => ({ type: FOLLOW, userId });
 export let unFollowAC = (userId) => ({ type: UNFOLLOW, userId });
 export let setUsersAC = (users) => ({ type: SET_USERS, users});
-export let setCurrentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage});
+export let setCurrentPageAC = (newCurrentPage) => ({ type: SET_CURRENT_PAGE, newCurrentPage});
 export let setTotalUsersCountAC = (totalCount) => ({ type: SET_TOTAL_USERS_COUNT, totalCount });
 
 
