@@ -1,4 +1,4 @@
-.avatar {
+.avatar, .loader {
  height: 100px;
  width: 100px;
 }
@@ -21,3 +21,4 @@ span {
 span:nth-child(5) {
     margin-right: 30px;
 }
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Users.module.css';
+import isLoading from '../../pictures/isLoading.gif';
 
 
 const Users = (props) => {
@@ -11,7 +12,7 @@ const Users = (props) => {
         if (i <= 5 || i >= (pagesCount - 5)) { pages.push(i) }
     }
 
-
+    
     return (<div>
 
         {pages.map(p => {
@@ -22,6 +23,7 @@ const Users = (props) => {
             )
         })}
 
+        {props.isFetching && (<div><img src={isLoading} className={styles.loader} alt='loader'/> </div>) }
 
         {props.users.map(u => {
             return (
