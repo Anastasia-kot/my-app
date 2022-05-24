@@ -1,9 +1,11 @@
 .navbar .item {
   color:white;
+  margin-left: 10px;
 }
 
 
 .navbar{
   grid-area:n;
   background-color: green;
+
 }

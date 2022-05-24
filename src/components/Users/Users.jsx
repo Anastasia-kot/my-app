@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './Users.module.css';
-import isLoading from '../../pictures/isLoading.gif';
+import avatarImg from '../../pictures/avatarImg.png';
+import Preloader from '../Services/Preloader';
+
+
 
 
 const Users = (props) => {
@@ -23,14 +26,13 @@ const Users = (props) => {
             )
         })}
 
-        {props.isFetching && (<div><img src={isLoading} className={styles.loader} alt='loader'/> </div>) }
+        {props.isFetching && <Preloader /> }
 
         {props.users.map(u => {
             return (
                 <div key={u.id} className={styles.userCardContainer}>
                     <div className={styles.userCard}>
-                        <img className={styles.avatar} alt='avatar'
-                            src={u.photos.small ? u.photos.small : 'https://dthezntil550i.cloudfront.net/kg/latest/kg1802132010216500004834729/1280_960/557d644f-12f3-49e1-bb66-23c16400540d.png'} />
+                        <img className={styles.avatar} alt='avatar'  src={u.photos.small  ? u.photos.small : avatarImg } />
                         <br />
                         {u.name}
                         <div>

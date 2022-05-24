@@ -3,7 +3,12 @@
   width: 100px;
 }
 
-text {
+.text, .contacts_header {
   color:black;
   text-decoration: underline;
+  font-weight: 700;
+}
+
+.contact {
+  margin-left: 10px;
 }
