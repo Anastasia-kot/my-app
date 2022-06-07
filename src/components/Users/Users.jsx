@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Users.module.css';
 import avatarImg from '../../pictures/avatarImg.png';
 import Preloader from '../Services/Preloader';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -32,7 +33,7 @@ const Users = (props) => {
             return (
                 <div key={u.id} className={styles.userCardContainer}>
                     <div className={styles.userCard}>
-                        <img className={styles.avatar} alt='avatar'  src={u.photos.small  ? u.photos.small : avatarImg } />
+                        <NavLink to={'/profile/' + u.id}> <img className={styles.avatar} alt='avatar' src={u.photos.small ? u.photos.small : avatarImg} /> </NavLink>
                         <br />
                         {u.name}
                         <div>

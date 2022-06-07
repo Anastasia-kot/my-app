@@ -6,11 +6,8 @@ import Preloader from '../../Services/Preloader';
 
 
 const ProfileInfo = (props) => {
-    console.log(props.userInfo);
 
-    if (props.userInfo == null) {
-        return <Preloader />
-    } else {
+    if (!props.userInfo ) { return <Preloader />} 
         return (<div>
             <img className={styles.avatar} alt='user avatar' src={props.userInfo.photos.large ? props.userInfo.photos.large: avatarImg} />
             <div className={styles.text}> {props.userInfo.fullName ? props.userInfo.fullName : '' }</div>
@@ -27,12 +24,12 @@ const ProfileInfo = (props) => {
                 <div className={styles.contact}> { props.userInfo.contacts.mainLink ? `mainLink: ${props.userInfo.contacts.mainLink}` : '' }</div >
             </div>
             <div className={styles.text}>Работа: {props.userInfo.lookingForAJob 
-                ? `я в поисках работы. ${props.userInfo.lookingForAJobDescription ? props.userInfo.lookingForAJobDescription : ''}` 
+                ? `я в поисках работы. (${props.userInfo.lookingForAJobDescription ? props.userInfo.lookingForAJobDescription : ''})` 
                 : 'я трудоустроен'}</div>
         
 
         </div>);
     }
-}
+
 
 export default ProfileInfo;

@@ -6,10 +6,11 @@ import { setUser, addPost, updateNewText } from '../../redux/profile-reducer';
 
 
 
+
 class ProfileContainer extends React.Component {
     componentDidMount(){
         axios
-            .get('https://social-network.samuraijs.com/api/1.0/profile/2')
+            .get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.URLuserId}`)
             .then (response => {
                 this.props.setUser(response.data);
             })
@@ -31,4 +32,7 @@ let MapStateToProps = (state) => ({
     userInfo: state.profilePage.userInfo,
 });
 
-export default connect(MapStateToProps, { setUser, addPost, updateNewText})(ProfileContainer);
+
+
+
+export default connect(MapStateToProps, { setUser, addPost, updateNewText })(ProfileContainer);
