@@ -2,12 +2,13 @@ import './App.css';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
+
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
-//import ProfileContainer from './components/Profile/ProfileContainer';
 import ProfileContainerWithParams from './components/Profile/ProfileContainerWithParams';
+
 import Login from './components/LoginPage/Login';
 
 
@@ -16,7 +17,7 @@ const App = () => {
   return (
   
       <div className='page-wrapper'>
-        <Header />
+        <HeaderContainer />
         <Navbar />
         <div className='mainContent'>
           <Routes>

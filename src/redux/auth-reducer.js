@@ -1,11 +1,11 @@
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
-const UNLOGIN = 'UNLOGIN';
+//const UNLOGIN = 'UNLOGIN';
 
 
 let initialState =  {
     data: {
+        email: null, 
         id: null,
-        email: null,
         login: null
     },
     isAuth: false
@@ -15,12 +15,19 @@ let initialState =  {
 const authReducer = (state = initialState, action) => {
      switch (action.type) {
       
-        case SET_AUTH_USER_DATA:
-            return { ...state, data: action.userData, isAuth: true}
+        case SET_AUTH_USER_DATA: {
+            let newState = {...state};
+            newState.isAuth = true;
+            newState.data = action.userData;
+             console.log(newState.isAuth);
 
-        case UNLOGIN:
-             return { ...state, isAuth: false, 
-                        ...state.data, id: null, email: null, login:null }
+            return newState;
+            // return { ...state, data: action.userData, isAuth: true}
+        }
+
+        // case UNLOGIN:
+        //      return { ...state, isAuth: false, 
+        //                 ...state.data, id: null, email: null, login:null }
 
         default: 
             return state;
