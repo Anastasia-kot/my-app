@@ -3,7 +3,6 @@ import styles from './Header.module.css';
 
 const Header = (props) => {
 
-console.log(props.isAuth);
 
     return (<div className={styles.header}>
     

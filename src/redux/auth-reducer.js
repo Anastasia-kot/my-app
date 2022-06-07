@@ -19,7 +19,6 @@ const authReducer = (state = initialState, action) => {
             let newState = {...state};
             newState.isAuth = true;
             newState.data = action.userData;
-             console.log(newState.isAuth);
 
             return newState;
             // return { ...state, data: action.userData, isAuth: true}

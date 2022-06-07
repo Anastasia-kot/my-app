@@ -10,7 +10,8 @@ class UsersContainer extends React.Component {
 
     componentDidMount() {
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${this.props.currentPage}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${this.props.currentPage}`, 
+                {withCredentials: true})
             .then(response => {
                 this.props.setUsers(response.data.items);
                 this.props.setTotalUsersCount(response.data.totalCount);
@@ -23,7 +24,8 @@ class UsersContainer extends React.Component {
         this.props.setIsFetchingStatus(true);
 
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${newCurrentPage}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${newCurrentPage}`,
+                { withCredentials: true })
             .then( response => { 
                 this.props.setUsers(response.data.items);
                 this.props.setIsFetchingStatus(false) 
