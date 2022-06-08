@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { followUser, setCurrentPage, setIsFetchingStatus, setTotalUsersCount, setUsers, unFollowUser } from '../../redux/users-reducer';
 import Users from './Users';
 import * as axios from 'axios';
+import { getUsersWithAPI } from '../../API/api';
 
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${this.props.currentPage}`, 
-                {withCredentials: true})
-            .then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
+
+        getUsersWithAPI(this.props.count, this.props.currentPage)
+                .then(response => {
+                this.props.setUsers(response.items);
+                this.props.setTotalUsersCount(response.totalCount);
             });
     };
 
@@ -23,11 +23,9 @@ class UsersContainer extends React.Component {
         this.props.setCurrentPage(newCurrentPage);
         this.props.setIsFetchingStatus(true);
 
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${newCurrentPage}`,
-                { withCredentials: true })
+        getUsersWithAPI(this.props.count, this.props.currentPage)
             .then( response => { 
-                this.props.setUsers(response.data.items);
+                this.props.setUsers(response.items);
                 this.props.setIsFetchingStatus(false) 
             });
     };
@@ -60,4 +58,5 @@ const mapStateToProps = (state) => {
 
 
 export default UsersContainer = connect(mapStateToProps, 
-        {followUser, unFollowUser, setUsers, setCurrentPage, setTotalUsersCount, setIsFetchingStatus })(UsersContainer);
+        {followUser, unFollowUser, setUsers, setCurrentPage, 
+            setTotalUsersCount, setIsFetchingStatus })(UsersContainer);
