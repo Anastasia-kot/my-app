@@ -2,42 +2,44 @@ import axios from 'axios';
 import react from 'react';
 
 const instance = axios.create({
-    baseURL: null
+    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    withCredentials: true ,
+    headers: { 'API-KEY': '4ad644c4-d1dd-49be-b3f0-9812e1d31045' } 
 })
 
+
+
 export const getUsersWithAPI = (count, currentPage) => {
-    return axios
-        .get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${currentPage}`, { withCredentials: true })
+    return instance
+        .get(`users?count=${count}&page=${currentPage}`)
         .then(response => {return response.data})
 }
 
-export const getUserDataWithAPI = (userId) => {
-    return axios
-        .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, { withCredentials: true })
-        .then(response => { return response.data })
-}
-
-
 export const followUserWithAPI = (userId) => {
-    return axios
-        .post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {},
-            { withCredentials: true, headers: { 'API-KEY': '4ad644c4-d1dd-49be-b3f0-9812e1d31045' } })
+    return instance
+        .post(`follow/${userId}`)
         .then(response => { return response.data })
 }
 
 export const unfollowUserWithAPI = (userId) => {
-    return axios
-        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {},
-            { withCredentials: true, headers: { 'API-KEY': '4ad644c4-d1dd-49be-b3f0-9812e1d31045' } })
+    return instance
+        .delete(`follow/${userId}`)
         .then(response => { return response.data })
 }
 
 
 
+export const getUserDataWithAPI = (userId) => {
+    return instance
+        .get(`profile/${userId}`)
+        .then(response => { return response.data })
+}
+
+
 
 export const getAuthUserDataWithAPI = () => {
-    return axios
-        .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, { withCredentials: true })
+    return instance
+        .get(`auth/me`)
         .then(response => { return response.data })
 }
 

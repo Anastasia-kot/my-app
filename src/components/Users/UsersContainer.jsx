@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { followUser, setCurrentPage, setIsFetchingStatus, setTotalUsersCount, setUsers, unFollowUser } from '../../redux/users-reducer';
-import Users from './Users';
-import * as axios from 'axios';
+import { followUser, setCurrentPage, setIsFetchingStatus, setTotalUsersCount, 
+    setUsers, unFollowUser, setFollowingInProgress } from '../../redux/users-reducer';
 import { getUsersWithAPI } from '../../API/api';
+import Users from './Users';
 
 
 
@@ -34,13 +34,18 @@ class UsersContainer extends React.Component {
     render() {
         return <Users
             setNewCurrentPage={this.setNewCurrentPage}
+            unFollowUser={this.props.unFollowUser}
+            followUser={this.props.followUser}
+            setFollowingInProgress={this.props.setFollowingInProgress}
+
+            
+            users={this.props.users}
             totalCount={this.props.totalCount}
             count={this.props.count}
             currentPage={this.props.currentPage}
-            users={this.props.users}
-            unFollowUser={this.props.unFollowUser}
-            followUser={this.props.followUser}
-            isFetching={this.props.isFetching} />
+            isFetching={this.props.isFetching} 
+            followingInProgress={this.props.followingInProgress}
+/>
     };
 }
 
@@ -52,6 +57,7 @@ const mapStateToProps = (state) => {
         count:       state.usersPage.count,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
     }
 };
 
@@ -59,4 +65,4 @@ const mapStateToProps = (state) => {
 
 export default UsersContainer = connect(mapStateToProps, 
         {followUser, unFollowUser, setUsers, setCurrentPage, 
-            setTotalUsersCount, setIsFetchingStatus })(UsersContainer);
+            setTotalUsersCount, setIsFetchingStatus, setFollowingInProgress })(UsersContainer);
