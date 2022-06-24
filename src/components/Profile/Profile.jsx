@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 const Profile = (props) => {
     return (
         <div className={styles.profile}>
-            <span><ProfileInfo userInfo={props.userInfo} /></span>
+            <span><ProfileInfo userInfo={props.userInfo} isAuth={props.isAuth} /></span>
             <span><Posts 
                 posts={props.posts}
                 newPostText={props.newPostText}

@@ -1,26 +1,23 @@
 import React from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
-import axios from 'axios';
-import { setUser, addPost, updateNewText } from '../../redux/profile-reducer';
-import { getUserDataWithAPI } from '../../API/api';
+import { setUser, addPost, updateNewText, getUserData } from '../../redux/profile-reducer';
 
 
 
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-    
-        getUserDataWithAPI(this.props.URLuserId)
-            .then (response => { 
-                this.props.setUser(response) 
-            })
+        this.props.getUserData(this.props.URLuserId);
     }
 
     render() { return <Profile 
         posts={this.props.posts}
         newPostText={this.props.newPostText}
         userInfo={this.props.userInfo}
+        isAuth={this.props.isAuth}
+
+        
         addPost={this.props.addPost} 
         updateNewText={this.props.updateNewText} 
         />
@@ -31,9 +28,10 @@ let MapStateToProps = (state) => ({
     posts: state.profilePage.posts,
     newPostText: state.profilePage.newPostText,
     userInfo: state.profilePage.userInfo,
+    isAuth: state.authReducer.isAuth
 });
 
 
 
 
-export default connect(MapStateToProps, { setUser, addPost, updateNewText })(ProfileContainer);
+export default connect(MapStateToProps, { setUser, addPost, updateNewText, getUserData })(ProfileContainer);

@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { followUser, setCurrentPage, setIsFetchingStatus, setTotalUsersCount, 
-    setUsers, unFollowUser, setFollowingInProgress } from '../../redux/users-reducer';
-import { getUsersWithAPI } from '../../API/api';
+import {
+    followUser, unFollowUser, getUsersTC, setNewCurrentPage   } from '../../redux/users-reducer';
 import Users from './Users';
 
 
@@ -10,34 +9,15 @@ import Users from './Users';
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-
-        getUsersWithAPI(this.props.count, this.props.currentPage)
-                .then(response => {
-                this.props.setUsers(response.items);
-                this.props.setTotalUsersCount(response.totalCount);
-            });
-    };
-
-
-    setNewCurrentPage = (newCurrentPage) => {
-        this.props.setCurrentPage(newCurrentPage);
-        this.props.setIsFetchingStatus(true);
-
-        getUsersWithAPI(this.props.count, this.props.currentPage)
-            .then( response => { 
-                this.props.setUsers(response.items);
-                this.props.setIsFetchingStatus(false) 
-            });
+        this.props.getUsersTC(this.props.count, this.props.currentPage);
     };
 
 
     render() {
         return <Users
-            setNewCurrentPage={this.setNewCurrentPage}
+            setNewCurrentPage={this.props.setNewCurrentPage}
             unFollowUser={this.props.unFollowUser}
             followUser={this.props.followUser}
-            setFollowingInProgress={this.props.setFollowingInProgress}
-
             
             users={this.props.users}
             totalCount={this.props.totalCount}
@@ -64,5 +44,4 @@ const mapStateToProps = (state) => {
 
 
 export default UsersContainer = connect(mapStateToProps, 
-        {followUser, unFollowUser, setUsers, setCurrentPage, 
-            setTotalUsersCount, setIsFetchingStatus, setFollowingInProgress })(UsersContainer);
+    {followUser, unFollowUser, getUsersTC, setNewCurrentPage})(UsersContainer);

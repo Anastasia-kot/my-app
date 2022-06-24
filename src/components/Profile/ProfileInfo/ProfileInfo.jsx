@@ -2,11 +2,12 @@ import React from 'react';
 import styles from './ProfileInfo.module.css';
 import avatarImg from '../../../pictures/avatarImg.png';
 import Preloader from '../../Services/Preloader';
+import { Navigate } from 'react-router-dom';
 
 
 
 const ProfileInfo = (props) => {
-
+    if (!props.isAuth) {return <Navigate replace to ='/login' />}
     if (!props.userInfo ) { return <Preloader />} 
         return (<div>
             <img className={styles.avatar} alt='user avatar' src={props.userInfo.photos.large ? props.userInfo.photos.large: avatarImg} />
