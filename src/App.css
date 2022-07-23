@@ -1,7 +1,7 @@
 .page-wrapper{
   display: grid;
    grid-template-columns: 2fr 10fr;
-   grid-template-rows: 50px 1fr;
+   grid-template-rows: 100px 1fr;
    grid-template-areas: 
             "h h"
             "n p";
@@ -14,5 +14,6 @@
 
 .mainContent{
   grid-area:p;
-  background-color: blueviolet;
+  background-color: lightgrey;
+  border: 10px dotted black;
 }

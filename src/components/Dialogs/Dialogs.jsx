@@ -3,10 +3,11 @@ import styles from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { Navigate } from 'react-router-dom';
+import { withAuThRedirect } from '../../HOC/AuthRedirect';
 
  const Dialogs = (props) => {
      
-     if (!props.isAuth) { return <Navigate replace to='/login' /> }
+    //  if (!props.isAuth) { return <Navigate replace to='/login' /> }
 
 
     let dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id} key={dialog.id} />);
@@ -45,4 +46,7 @@ import { Navigate } from 'react-router-dom';
     )
 }
 
-export default Dialogs;
+
+let AuthRedirectComponent = withAuThRedirect(Dialogs)
+
+export default AuthRedirectComponent;

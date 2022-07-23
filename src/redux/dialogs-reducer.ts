@@ -1,10 +1,7 @@
+const ADD_MESSAGE = 'DIALOGS-REDUCER/ADD_MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'DIALOGS-REDUCER/UPDATE_NEW_MESSAGE_TEXT';
 
-const ADD_MESSAGE = 'ADD_MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
-
-
-export let addMessageActionCreator = () => ({ type: ADD_MESSAGE });
-export let updateNewMessageTextActionCreator = (text) => ({ type: UPDATE_NEW_MESSAGE_TEXT, newText: text });
+type InitialStateType = typeof initialState;
 
 let initialState = {
     dialogs: [
@@ -27,7 +24,7 @@ let initialState = {
 }
 
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             let newMessageText = state.newMessageText;
@@ -44,12 +41,26 @@ const dialogsReducer = (state = initialState, action) => {
         case UPDATE_NEW_MESSAGE_TEXT:
             return {
                 ...state,
-                newMessageText: action.newText
+                newMessageText: action.text
             };
         
         default:
             return state;
     }
 }
+
+type ActionsTypes = AddMessageActionCreatorAT | UpdateNewMessageTextActionCreatorAT;
+type AddMessageActionCreatorAT = {
+    type: typeof ADD_MESSAGE
+}
+export let addMessageActionCreator = (): AddMessageActionCreatorAT => ({ type: ADD_MESSAGE });
+
+type UpdateNewMessageTextActionCreatorAT = {
+    type: typeof UPDATE_NEW_MESSAGE_TEXT,
+    text: string
+}
+export let updateNewMessageTextActionCreator = (text: string): UpdateNewMessageTextActionCreatorAT => ({ type: UPDATE_NEW_MESSAGE_TEXT, text });
+
+
 
 export default dialogsReducer;

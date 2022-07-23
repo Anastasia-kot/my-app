@@ -5,20 +5,17 @@
 
 .userCard {
  margin: 5px;
+ display: flex;
   
 }
 
 .userCardContainer {
- margin: 30px;   
+    margin: 30px;   
 }
 
-.selected {
- font-weight: bold;   
+.userInfoContainer {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
 }
-span {
-    cursor:pointer;
-}
-span:nth-child(5) {
-    margin-right: 30px;
-}
-
+ 

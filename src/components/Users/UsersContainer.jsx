@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import {
-    followUser, unFollowUser, getUsersTC, setNewCurrentPage   } from '../../redux/users-reducer';
+import {   followUser, unFollowUser, getUsersTC, setNewCurrentPage   } from '../../redux/users-reducer.ts';
+import { getCount, getTotalCount, getUsers, getIsFetching, getFollowingInProgress, getCurrentPage } from '../../redux/users-selectors';
 import Users from './Users';
 
 
 
-class UsersContainer extends React.Component {
+class UsersContainer extends PureComponent {
 
     componentDidMount() {
         this.props.getUsersTC(this.props.count, this.props.currentPage);
@@ -32,12 +32,12 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        users:      state.usersPage.users,
-        totalCount: state.usersPage.totalCount,
-        count:       state.usersPage.count,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        totalCount: getTotalCount(state),
+        count: getCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 };
 

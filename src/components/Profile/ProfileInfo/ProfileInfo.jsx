@@ -2,17 +2,31 @@ import React from 'react';
 import styles from './ProfileInfo.module.css';
 import avatarImg from '../../../pictures/avatarImg.png';
 import Preloader from '../../Services/Preloader';
-import { Navigate } from 'react-router-dom';
+ import { withAuThRedirect } from '../../../HOC/AuthRedirect';
+// import ProfileStatus from './ProfileStatus/ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
 
 
 
 const ProfileInfo = (props) => {
-    if (!props.isAuth) {return <Navigate replace to ='/login' />}
-    if (!props.userInfo ) { return <Preloader />} 
+    
+    let updateProfilePhotoOnChange = (e) => {
+        if (e.target.files.length) {
+            props.updateProfilePhoto(e.target.files[0])
+        }
+    }; 
+
+
+     if (!props.userInfo ) { return <Preloader />} 
         return (<div>
             <img className={styles.avatar} alt='user avatar' src={props.userInfo.photos.large ? props.userInfo.photos.large: avatarImg} />
+            
+            { <input type='file' onChange={(e) => updateProfilePhotoOnChange(e)}/>}
+
             <div className={styles.text}> {props.userInfo.fullName ? props.userInfo.fullName : '' }</div>
-            <div className={styles.text}>My status: {props.userInfo.aboutMe ? props.userInfo.aboutMe : 'нет статуса'}</div>
+
+            <ProfileStatusWithHooks     status={props.status} updateStatus={props.updateStatus}/>
+            
             <div className={styles.contacts_block}>
                 <span className={styles.contacts_header}>My contacts: </span>
                 <div className={styles.contact}> {props.userInfo.contacts.facebook ? `facebook: ${props.userInfo.contacts.facebook}` : ''}</div>
@@ -32,5 +46,6 @@ const ProfileInfo = (props) => {
         </div>);
     }
 
+let AuthRedirectComponent = withAuThRedirect(ProfileInfo)
 
-export default ProfileInfo;
+export default AuthRedirectComponent;

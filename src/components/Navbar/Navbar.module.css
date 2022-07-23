@@ -1,11 +1,18 @@
 .navbar .item {
-  color:white;
+  color:black;
   margin-left: 10px;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 20px;
+  text-transform: uppercase;
 }
 
 
 .navbar{
   grid-area:n;
-  background-color: green;
+  background-color: lightgrey;
+  border: 10px dotted black;
+  border-style: dotted   none dotted dotted;
+  padding: 20px;
 
 }

@@ -1,13 +1,10 @@
-import axios from 'axios';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { getAuthUserData } from '../../redux/auth-reducer';
+import {  getUnLogined } from '../../redux/auth-reducer.ts';
 import Header from './Header';
 
-class HeaderContainer extends React.Component  {
-    componentDidMount() {
-        this.props.getAuthUserData();
-    }
+class HeaderContainer extends PureComponent  {
+   
 
     render() {
         return (<Header {...this.props} />);
@@ -22,4 +19,4 @@ const MapStateToProps = (state) =>  {
 };
 
 
-export default connect(MapStateToProps, { getAuthUserData })(HeaderContainer);
+export default connect(MapStateToProps, { getUnLogined })(HeaderContainer);

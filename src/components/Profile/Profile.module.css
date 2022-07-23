@@ -1,4 +1,8 @@
-
+.profile{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 .profileDesktopPicture {
   height: 150px;
   width: 100%;

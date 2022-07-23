@@ -1,5 +1,4 @@
 import axios from 'axios';
-import react from 'react';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -14,13 +13,11 @@ export const getUsersWithAPI = (count, currentPage) => {
         .get(`users?count=${count}&page=${currentPage}`)
         .then(response => {return response.data})
 }
-
 export const followUserWithAPI = (userId) => {
     return instance
         .post(`follow/${userId}`)
         .then(response => { return response.data })
 }
-
 export const unfollowUserWithAPI = (userId) => {
     return instance
         .delete(`follow/${userId}`)
@@ -35,6 +32,41 @@ export const getUserDataWithAPI = (userId) => {
         .then(response => { return response.data })
 }
 
+export const updateStatusWithAPI = (status) => {
+    return instance
+        .put(`profile/status/`, { status: status })
+        .then(response => {
+            return response.data.data
+        })
+}
+
+export const getStatusWithAPI = (userId) => {
+    
+    return instance
+        .get(`profile/status/${userId}`)
+        .then(response => {
+            
+            
+            return response.data 
+        })
+}
+
+export const updateProfilePhotoWithAPI = (  file ) => {
+    const formData = new FormData();
+    formData.append('image', file)
+    
+    return instance
+        .put(`profile/photo`, 
+            formData, 
+            {headers: {
+                'Content-Type': "multipart / form - data"}}
+            )
+        .then(response => { 
+            return response.data.data.photos 
+        })
+}
+
+
 
 
 export const getAuthUserDataWithAPI = () => {
@@ -42,4 +74,22 @@ export const getAuthUserDataWithAPI = () => {
         .get(`auth/me`)
         .then(response => { return response.data })
 }
+
+export const loginWithAPI = (email, password, rememberMe) => {
+    return instance
+        .post(`/auth/login`, { email: email, password: password, rememberMe: rememberMe })
+        .then(response => { 
+            return response.data.data 
+        })
+}
+
+export const logOutWithAPI = (email, password, rememberMe) => {
+    return instance
+        .delete(`/auth/login` )
+        .then(response => { 
+            return response.data.data 
+        })
+}
+
+
 

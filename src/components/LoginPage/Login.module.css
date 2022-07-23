@@ -1,0 +1,29 @@
+.login {
+    margin: 50px;
+  
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.labelSpan{
+    width: 100px;
+    display: inline-block;
+}
+
+.field {
+margin: 5px;
+/* width: 00px; */
+display: inline-block;
+}
+
+.ErrorMessage{
+    display: inline-block;
+}
+
+.button {
+margin: 5px;
+width: 150px;    
+}

@@ -7,8 +7,7 @@ import ProfileContainer from './ProfileContainer';
 
 const ProfileContainerWithParams = (props) =>  {
     
-        let URLuserId = useParams().id;
-    if (!URLuserId) { URLuserId = 23829}
+    let URLuserId = useParams().id;
 
     return <ProfileContainer URLuserId={URLuserId}  />
 }

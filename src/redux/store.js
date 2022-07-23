@@ -1,5 +1,5 @@
-import dialogsReducer from "./dialogs-reducer";
-import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer.ts";
+import profileReducer from "./profile-reducer.ts";
 
 
 

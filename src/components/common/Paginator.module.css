@@ -1,0 +1,12 @@
+.Paginator{
+    margin: 10px;
+}
+
+.selected {
+ font-weight: bold;   
+}
+span {
+    cursor:pointer;
+    margin: 20px;
+    display: inline-block;
+}
