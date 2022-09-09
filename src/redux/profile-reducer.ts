@@ -154,31 +154,49 @@ export let setPhoto = (photos: Photos): setPhotoAT => ({ type: SET_PHOTO, photos
 
 export const getUserData = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        let response = await getUserDataWithAPI(userId)
-        dispatch(setUser(response))
+        // try{
+            let response = await getUserDataWithAPI(userId)
+            dispatch(setUser(response))
+        // } catch(error) {
+        //     alert ('some error. Try again later')             
+        // }
     }
 }
 
-export const updateProfilePhoto = (file: any) => (dispatch: Dispatch<ActionsTypes>) => {
-    updateProfilePhotoWithAPI(file)
-        .then(response => {
-            dispatch(setPhoto(response))
-        })
+export const updateProfilePhoto = (file: any) => 
+    (dispatch: Dispatch<ActionsTypes>) => {
+        try {
+            updateProfilePhotoWithAPI(file)
+            .then(response => {
+                dispatch(setPhoto(response))
+            })
+        } catch(error) {
+            alert ('some error. Try again later') 
+        }
 }
 
 
 export const getStatus = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        let response = await getStatusWithAPI(userId)
-        dispatch(setStatus(response))
-    }    
+        // try {
+            let response = await getStatusWithAPI(userId)
+            dispatch(setStatus(response))
+        // } catch (error) {
+        //     alert('some error. Try again later')
+        // }    
+    }
 }
 
-export const updateStatus = (status: string) => (dispatch: Dispatch<ActionsTypes>) => {
-    updateStatusWithAPI(status)
-        .then(response => {
-            dispatch(setStatus(status))
-        })
+export const updateStatus = (status: string) => 
+    (dispatch: Dispatch<ActionsTypes>) => {
+        try {
+            updateStatusWithAPI(status)
+                .then(response => {
+                    dispatch(setStatus(status))
+                })  
+        } catch (error) {
+            alert('some error. Try again later')
+        }
 }
 
 

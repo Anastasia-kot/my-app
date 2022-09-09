@@ -10,10 +10,10 @@ import Navbar from './components/Navbar/Navbar';
 import Login from './components/LoginPage/Login';
 import Preloader from './components/Services/Preloader';
 import ProfileContainerWithParams from './components/Profile/ProfileContainerWithParams';
-// const ProfileContainerWithParams = React.lazy(() => import('./components/Profile/ProfileContainerWithParams'));
+ // const ProfileContainerWithParams = React.lazy(() => import('./components/Profile/ProfileContainerWithParams'));
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const UsersContainer = React.lazy(() => import ('./components/Users/UsersContainer'));
+const Users   = React.lazy(() => import ('./components/Users/Users.tsx'));
 
 
 
@@ -36,7 +36,7 @@ class App extends PureComponent  {
               <Route path='/dialogs/*' element={<DialogsContainer />} />
               <Route path='/profile/:id' element={<ProfileContainerWithParams />} />
               <Route path='/profile/' element={<ProfileContainerWithParams />} />
-              <Route path='/users/*' element={<UsersContainer />} />
+              <Route path='/users/*' element={<Users  />} />
            
               <Route path='/login' element={<Login />} />
               {/* <Route path='/' element={<ProfileContainerWithParams />} /> */}
