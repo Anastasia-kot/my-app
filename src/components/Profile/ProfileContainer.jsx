@@ -3,7 +3,7 @@ import Profile from './Profile';
 import {connect} from 'react-redux';
 import { setUser, addPost, updateNewText, getUserData, 
     updateStatus, getStatus, updateProfilePhoto } from '../../redux/profile-reducer.ts';
-import { getPosts, getNewPostText, getUserInfo, getStatusSelector } from '../../redux/profile-selectors';
+import { getPosts, getNewPostText, getUserInfo, getStatusSelector } from '../../redux/profile-selectors.js';
 
 
 
@@ -33,18 +33,6 @@ class ProfileContainer extends PureComponent {
 
        
             
-        //     this.myId = this.props.URLuserId;
-        //     if (!this.myId) { this.myId = this.props.id }
-
-
-        //     this.props.getUserData(this.myId);
-        //     this.props.getStatus(this.myId);
-            
-        //     if (!this.props.URLuserId) { this.isOwner = true 
-        //     } else {
-        //         this.isOwner = false
-        //     }
-        // }
     }
 
     render() { return <Profile 

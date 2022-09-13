@@ -5,10 +5,10 @@ import styles from './Users.module.css';
 
 import Preloader from '../Services/Preloader';
 import Paginator from '../common/Paginator.tsx';
-import avatarImg from '../../pictures/avatarImg.png';
+import avatarImg from  '../../pictures/avatarImg.png';
 
 import { getUsersTC, User, actions, followUser, unFollowUser, setNewCurrentPage } from '../../redux/users-reducer.ts';
-import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors';
+import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.js';
     
 
 

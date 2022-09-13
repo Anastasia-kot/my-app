@@ -1,12 +1,8 @@
 import { Dispatch } from "react";
 import { getAuthUserDataWithAPI, loginWithAPI, logOutWithAPI } from "../API/api";
+import { InferActionsTypes } from "./redux-store";
 
-const SET_AUTH_USER_DATA = 'AUTH-REDUCER/SET_AUTH_USER_DATA';
-const TOGGLE_LOG_IN = 'AUTH-REDUCER/TOGGLE_LOG_IN';
-const SET_INITIALIZED = 'AUTH-REDUCER/SET_INITIALIZED';
-
-
-
+ 
 export type InitialStateType = typeof initialState;
 type UserData = typeof initialState.data;
 
@@ -25,19 +21,19 @@ let initialState =  {
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
      switch (action.type) {
       
-        case SET_AUTH_USER_DATA: {
+        case 'SET_AUTH_USER_DATA': {
             return { 
                 ...state, 
                 data: {...action.userData} 
                 }
         }
 
-        case TOGGLE_LOG_IN:
+        case 'TOGGLE_LOG_IN':
             return {
                  ...state, 
                  isAuth: action.isAuth, 
             }
-        case SET_INITIALIZED: {
+        case 'SET_INITIALIZED': {
             return {
                 ...state,
                 initialized: action.initialized
@@ -48,32 +44,22 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateTy
             return state;
     }
 }
+type ActionsTypes = InferActionsTypes<typeof actions> 
 
-type ActionsTypes = SetAuthUserDataAT | SetToggleLogInAT | SetInitializedAT;
-type SetAuthUserDataAT = {
-    type: typeof SET_AUTH_USER_DATA, 
-    userData: UserData
-}
-export let setAuthUserData = (userData: UserData): SetAuthUserDataAT => ({ type: SET_AUTH_USER_DATA, userData });
 
-type SetToggleLogInAT = {
-    type: typeof TOGGLE_LOG_IN,
-    isAuth: boolean
-}
-export let setToggleLogIn = (isAuth: boolean): SetToggleLogInAT => ({ type: TOGGLE_LOG_IN, isAuth });
+export const actions = {
 
-type SetInitializedAT = {
-    type: typeof SET_INITIALIZED,
-    initialized: boolean
+    setAuthUserData : (userData: UserData) => ({ type: 'SET_AUTH_USER_DATA', userData } as const),
+    setToggleLogIn: (isAuth: boolean) => ({ type: 'TOGGLE_LOG_IN', isAuth } as const),
+    setInitialized: (initialized: boolean) => ({ type: 'SET_INITIALIZED', initialized } as const),
 }
-export let setInitialized = (initialized: boolean): SetInitializedAT => ({ type: SET_INITIALIZED, initialized });
 
 
 export const getInitialized = () => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         let response = await  getAuthUserDataWithAPI()
-        dispatch(setAuthUserData(response.data))
-        dispatch(setInitialized(true))
+        dispatch(actions.setAuthUserData(response.data))
+        dispatch(actions.setInitialized(true))
     }
 }
 
@@ -88,7 +74,7 @@ export const getLogined = (email:string, password:string, rememberMe: boolean) =
     return async (dispatch: Dispatch<ActionsTypes>) => {
         let response = await loginWithAPI(email, password, rememberMe)
         getAuthUserData()
-        dispatch(setToggleLogIn(true))        
+        dispatch(actions.setToggleLogIn(true))        
     }
 }
 
@@ -96,8 +82,8 @@ export const getLogined = (email:string, password:string, rememberMe: boolean) =
 export const getUnLogined = () => {
     return async (dispatch:Dispatch<ActionsTypes>) => {
         let response = await logOutWithAPI()
-        dispatch(setToggleLogIn(false))
-        dispatch(setAuthUserData({
+        dispatch(actions.setToggleLogIn(false))
+        dispatch(actions.setAuthUserData({
             email: null,
             id: null,
             login: null
