@@ -1,5 +1,5 @@
 .dialogItem{
-    border: 2px solid rgb(210, 255, 47);
+    border: 2px solid rgb(0, 0, 0);
     border-radius: 10px; 
     margin-top: 15px;
     margin-bottom: 15px;
@@ -7,7 +7,7 @@
     margin-left: 5px;
     width: 70px;
     padding:5px;
-    color:  rgb(190, 243, 0);
+    color:  rgb(0, 0, 0);
     text-decoration: none;
     display: block;
     text-align: center;

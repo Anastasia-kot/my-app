@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styles from './Users.module.css';
+import { Pagination } from 'antd';
 
 import Preloader from '../Services/Preloader';
 import Paginator from '../common/Paginator.tsx';
@@ -10,6 +11,7 @@ import avatarImg from  '../../pictures/avatarImg.png';
 import { getUsersTC, User, actions, followUser, unFollowUser, setNewCurrentPage } from '../../redux/users-reducer.ts';
 import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.js';
     
+import {   UserOutlined } from '@ant-design/icons';
 
 
 
@@ -30,10 +32,19 @@ const Users: React.FC = ( ) => {
     }, [])
 
 
-    const setNewCurrentPageOnClick = React.useCallback (
-        (newCurrentPage, count) => dispatch(setNewCurrentPage(newCurrentPage, count)),
-        [dispatch]
-    ); 
+    //paginator logic
+    const setNewCurrentPageOnClick = 
+        (newCurrentPage) => dispatch(setNewCurrentPage(newCurrentPage, count))
+     ; 
+    const onShowSizeChange = (current, pageSize) => {
+            console.log(current, pageSize);
+            dispatch(actions.setUsersOnPageCount(pageSize))
+            dispatch(setNewCurrentPage(1, pageSize))
+    }; 
+
+   
+
+// follow - unfollow 
     const unFollowUserOnClick = React.useCallback (
         (id) => dispatch(unFollowUser(id)),
         [dispatch]
@@ -43,16 +54,18 @@ const Users: React.FC = ( ) => {
         [dispatch]
     ); 
 
-    
-    
-    return (<div>
+   
 
-        <Paginator 
-            totalCount={totalCount}
-            count={count}
-            currentPage={currentPage}
-            setNewCurrentPage={setNewCurrentPageOnClick} 
-            />
+
+    return (<div>
+        <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowSizeChange}
+            defaultCurrent={currentPage}
+            total={totalCount} 
+            onChange={setNewCurrentPageOnClick}
+        />
+         
 
         {isFetching && <Preloader /> }
 
@@ -62,7 +75,11 @@ const Users: React.FC = ( ) => {
                     <div className={styles.userCard}>
                         
                         <NavLink to={'/profile/' + u.id}> 
-                            <img className={styles.avatar} alt='avatar' src={u.photos.small ? u.photos.small : avatarImg} /> 
+                            {u.photos.small
+                                ? <img className={styles.avatar} alt='avatar' src={u.photos.small} /> 
+                                : <UserOutlined style={{ fontSize: '50px', color: 'black', width: '60px', height:'60px' }} />
+                            }
+                           
                         </NavLink>
                         
                         <div className={styles.userInfoContainer}>

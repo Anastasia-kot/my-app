@@ -1,4 +1,6 @@
 import React from 'react';
+import { Router } from "react-history-router";
+
 import styles from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
 import { TeamOutlined , SettingOutlined, LaptopOutlined, NotificationOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
@@ -39,12 +41,10 @@ const items = [
 
 const Navbar = () => {
 
-    // let history = useHistory();
 
     const onClick  = e => {
         console.log('click ', e);
-        // history.push("/"+e.label)
-    };
+     };
 
 
  

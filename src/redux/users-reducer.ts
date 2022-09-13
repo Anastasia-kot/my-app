@@ -22,7 +22,7 @@ export type User = {
 let initialState = {
     users: [] as Array<User>,
     totalCount: 0 as number,
-    count: 5 as number,
+    count: 10 as number,
     currentPage: 1 as number,
     isFetching: false as boolean,
 
@@ -61,6 +61,10 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
             return {
                 ...state, totalCount: action.totalCount
             };
+        case 'USERS-REDUCER/SET_USERS_ON_PAGE_COUNT':
+            return {
+                ...state, count: action.count
+            };
 
         case 'USERS-REDUCER/SET_IS_FETCHING_STATUS':
              return {
@@ -82,7 +86,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 };
 
 
-
 type ActionsTypes = InferActionsTypes<typeof actions> 
 
 export const actions = {
@@ -95,6 +98,7 @@ export const actions = {
     setCurrentPage: (newCurrentPage: number) => ({ type: 'USERS-REDUCER/SET_CURRENT_PAGE', newCurrentPage } as const),
 
     setTotalUsersCount: (totalCount: number) => ({ type: 'USERS-REDUCER/SET_TOTAL_USERS_COUNT', totalCount } as const),
+    setUsersOnPageCount: (count: number) => ({ type: 'USERS-REDUCER/SET_USERS_ON_PAGE_COUNT', count } as const),
 
     setIsFetchingStatus: (isFetchingStatus: boolean) => ({ type: 'USERS-REDUCER/SET_IS_FETCHING_STATUS', isFetchingStatus } as const),
 
@@ -117,7 +121,7 @@ export const getUsersTC = (count: number, currentPage: number) => {
     };
 };
 
-export const setNewCurrentPage = (newCurrentPage: number, count: number) => {
+export const setNewCurrentPage = (newCurrentPage: number, count: number ) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         dispatch(actions.setCurrentPage(newCurrentPage));
         dispatch(actions.setIsFetchingStatus(true));
