@@ -1,27 +1,19 @@
 import React from 'react';
-import { Router } from "react-history-router";
-
-import styles from './Navbar.module.css';
-import { NavLink } from 'react-router-dom';
-import { TeamOutlined , SettingOutlined, LaptopOutlined, NotificationOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
- import {  Layout, Menu } from 'antd';
+import { useNavigate  } from "react-router-dom";
+import { TeamOutlined , SettingOutlined, LaptopOutlined, 
+            NotificationOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
+import {  Layout, Menu } from 'antd';
 
 
  
 const { Sider } = Layout;
 
-function getItem(label, key, icon, children, type) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-        type,
-    };
+function getItem(label, key, icon,   children, type) {
+    return { key, icon, children, label, type };
 }
 
 const items = [
-    getItem('My Profile', 'sub1', <UserOutlined />, [
+    getItem('Profile', 'sub1', <UserOutlined />, [
         getItem('Profile', 'sub11', <LaptopOutlined/>,  ),
         getItem('Dialogs', 'sub12', <MessageOutlined />,  ),
     ]),
@@ -30,25 +22,26 @@ const items = [
     getItem('Settings', 'sub4', <SettingOutlined />,  ),
 ];
 
-{/* <nav className={styles.navbar}>
-            <NavLink to='/profile' className={styles.item}>Profile</NavLink> 
-            <NavLink to='/users' className={styles.item}>Users</NavLink
-            <NavLink to='/dialogs' className={styles.item}>Dialogs</NavLink>
-            <NavLink to='/news' className={styles.item}>News</NavLink>
-            <NavLink to='/music' className={styles.item}>Music</NavLink>
-            <NavLink to='/settings' className={styles.item}>Settings</NavLink>
-    </nav> */}
+ 
 
 const Navbar = () => {
 
+    const navigate = useNavigate();
 
     const onClick  = e => {
-        console.log('click ', e);
-     };
+         let adress = '';
+        switch (e.key) {
+            case 'sub1': adress = '/profile'; break;
+            case 'sub11': adress = '/profile'; break;
+            case 'sub12': adress = '/dialogs'; break;
+            case 'sub2': adress = '/users'; break;
+            case 'sub3': adress = '/news'; break;
+            case 'sub4': adress = '/settings'; break;
+            default: break;
+        }
+        navigate(adress, { replace: true });
+      };
 
-
- 
-    
     return (
         <div>
     
@@ -56,7 +49,6 @@ const Navbar = () => {
             <Menu
               mode="inline"
               onClick={onClick}
-
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
               style={{
