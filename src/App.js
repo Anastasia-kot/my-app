@@ -13,7 +13,7 @@ import MyHeader  from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/LoginPage/Login';
 import Preloader from './components/Services/Preloader';
-import ProfileContainerWithParams from './components/Profile/ProfileContainerWithParams';
+import Profile  from './components/Profile/Profile';
 // const ProfileContainerWithParams = React.lazy(() => import('./components/Profile/ProfileContainerWithParams'));
 
 
@@ -85,8 +85,8 @@ const App = React.memo((props) => {
                 <Routes>
 
                   <Route path='/dialogs/*' element={<Dialogs />} />
-                  <Route path='/profile/:id' element={<ProfileContainerWithParams />} />
-                  <Route path='/profile/' element={<ProfileContainerWithParams />} />
+                  <Route path='/profile/:id' element={<Profile />} />
+                  <Route path='/profile/' element={<Profile />} />
                   <Route path='/users/*' element={<Users />} />
                   <Route path='/login' element={<Login />} />
                   <Route path='/' element={<Dialogs />} />

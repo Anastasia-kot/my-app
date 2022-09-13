@@ -1,11 +1,7 @@
+import { InferActionsTypes } from './redux-store';
 import { Dispatch } from "react";
 import { getUserDataWithAPI,  getStatusWithAPI, updateStatusWithAPI, updateProfilePhotoWithAPI } from "../API/api";
-
-const ADD_POST = 'PROFILE-REDUCER/ADD_POST';
-const UPDATE_NEW_TEXT = 'PROFILE-REDUCER/UPDATE_NEW_TEXT';
-const SET_USER = 'PROFILE-REDUCER/SET_USER';
-const SET_STATUS = 'PROFILE-REDUCER/SET_STATUS';
-const SET_PHOTO = 'PROFILE-REDUCER/SET_PHOTO';
+ 
 
 type InitialStateType = typeof initialState;
 
@@ -79,7 +75,7 @@ let initialState =  {
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
      switch (action.type) {
 
-        case  ADD_POST:  
+        case  'PROFILE-REDUCER/ADD_POST':  
             let postMessage = state.newPostText;
             return {
                 ...state,
@@ -90,13 +86,13 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
                 newPostText:''
             };
 
-        case UPDATE_NEW_TEXT:
+        case 'PROFILE-REDUCER/UPDATE_NEW_TEXT':
             return { ...state, newPostText: action.text}
 
-        case SET_USER:
+        case 'PROFILE-REDUCER/SET_USER':
             return { ...state, userInfo: action.userData}
 
-         case SET_PHOTO:
+         case 'PROFILE-REDUCER/SET_PHOTO':
             return { 
                 ...state,  
                 userInfo: {
@@ -105,7 +101,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
                 }
             }
 
-        case SET_STATUS:
+        case 'PROFILE-REDUCER/SET_STATUS':
                 if (!action.status) {return { ...state, status: '' }
             } else {
                 return { ...state, status: action.status }
@@ -119,44 +115,24 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 
 
-type ActionsTypes = AddPostAT | UpdateNewTextAT | SetUserAT | SetStatusAT | setPhotoAT;
+type ActionsTypes = InferActionsTypes<typeof actions> 
 
-type AddPostAT = { 
-    type: typeof  ADD_POST 
+
+export const actions = {
+    addPost: () => ({  type: 'PROFILE-REDUCER/ADD_POST' } as const),
+    updateNewText: (text: string) => ({ type: 'PROFILE-REDUCER/UPDATE_NEW_TEXT', text } as const),
+    setUser: (userData: UserInfoType) => ({ type: 'PROFILE-REDUCER/SET_USER', userData } as const),
+    setStatus: (status: string) => ({ type: 'PROFILE-REDUCER/SET_STATUS', status } as const),
+    setPhoto: (photos: Photos) => ({ type: 'PROFILE-REDUCER/SET_PHOTO', photos } as const),
 }
-export let addPost = (): AddPostAT => ({ type: ADD_POST });
 
-type UpdateNewTextAT = { 
-    type: typeof UPDATE_NEW_TEXT,
-    text: string
-}
-export let updateNewText = (text: string): UpdateNewTextAT => ({ type: UPDATE_NEW_TEXT,  text });
 
-type SetUserAT = {
-    type: typeof SET_USER,
-    userData: UserInfoType
-}
-export let setUser = (userData: UserInfoType): SetUserAT => ({ type: SET_USER, userData });
-
-type SetStatusAT = {
-    type: typeof SET_STATUS,
-    status: string
-}
-export let setStatus = (status: string): SetStatusAT => ({ type: SET_STATUS, status });
-
-type setPhotoAT = {
-    type: typeof SET_PHOTO,
-    photos: Photos
-}
-export let setPhoto = (photos: Photos): setPhotoAT => ({ type: SET_PHOTO, photos });
-
- 
 
 export const getUserData = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         // try{
             let response = await getUserDataWithAPI(userId)
-            dispatch(setUser(response))
+            dispatch(actions.setUser(response))
         // } catch(error) {
         //     alert ('some error. Try again later')             
         // }
@@ -168,7 +144,7 @@ export const updateProfilePhoto = (file: any) =>
         try {
             updateProfilePhotoWithAPI(file)
             .then(response => {
-                dispatch(setPhoto(response))
+                dispatch(actions.setPhoto(response))
             })
         } catch(error) {
             alert ('some error. Try again later') 
@@ -180,7 +156,7 @@ export const getStatus = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         // try {
             let response = await getStatusWithAPI(userId)
-            dispatch(setStatus(response))
+            dispatch(actions.setStatus(response))
         // } catch (error) {
         //     alert('some error. Try again later')
         // }    
@@ -192,7 +168,7 @@ export const updateStatus = (status: string) =>
         try {
             updateStatusWithAPI(status)
                 .then(response => {
-                    dispatch(setStatus(status))
+                    dispatch(actions.setStatus(status))
                 })  
         } catch (error) {
             alert('some error. Try again later')

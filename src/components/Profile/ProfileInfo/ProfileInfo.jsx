@@ -2,50 +2,65 @@ import React from 'react';
 import styles from './ProfileInfo.module.css';
 import avatarImg from '../../../pictures/avatarImg.png';
 import Preloader from '../../Services/Preloader';
- import { withAuThRedirect } from '../../../HOC/AuthRedirect';
-// import ProfileStatus from './ProfileStatus/ProfileStatus';
+import { withAuThRedirect } from '../../../HOC/AuthRedirect';
 import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
+import {  actions } from '../../../redux/profile-reducer.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { getStatusSelector, getUserInfo } from '../../../redux/profile-selectors';
+import { Navigate } from 'react-router-dom';
 
 
 
-const ProfileInfo = (props) => {
+const ProfileInfo = ({isOwner}) => {
     
+//state
+
+    const userInfo = useSelector(getUserInfo);
+    const status = useSelector(getStatusSelector);
+    const isAuth = useSelector(state => state.authReducer.isAuth);
+    const id = useSelector(state => state.authReducer.data.id);
+     
+ 
+    const contacts = [];
+    for (let key in userInfo.contacts) {
+        contacts.push(
+            <div className={styles.contact} key={contacts.length}>
+                {userInfo.contacts[key] && `${key}: ${userInfo.contacts[key]}`}
+            </div>)
+    }
+
+// logic
+    const dispatch = useDispatch();
+
     let updateProfilePhotoOnChange = (e) => {
         if (e.target.files.length) {
-            props.updateProfilePhoto(e.target.files[0])
+            dispatch(actions.updateProfilePhoto(e.target.files[0]))
         }
     }; 
 
-
-     if (!props.userInfo ) { return <Preloader />} 
-        return (<div>
-            <img className={styles.avatar} alt='user avatar' src={props.userInfo.photos.large ? props.userInfo.photos.large: avatarImg} />
+    // if (!isAuth) { <Navigate to='/login'/>}
+    if (!userInfo ) { return <Preloader />} 
+    return (<div>
+            <img className={styles.avatar} alt='user avatar' src={userInfo.photos.large ? userInfo.photos.large: avatarImg} />
             
-            { <input type='file' onChange={(e) => updateProfilePhotoOnChange(e)}/>}
+            {
+            // isOwner && 
+            <input type='file' onChange={(e) => updateProfilePhotoOnChange(e)}/>}
 
-            <div className={styles.text}> {props.userInfo.fullName ? props.userInfo.fullName : '' }</div>
+            <div className={styles.text}> {userInfo.fullName ? userInfo.fullName : '' }</div>
 
-            <ProfileStatusWithHooks     status={props.status} updateStatus={props.updateStatus}/>
+        <ProfileStatusWithHooks status={status} updateStatus={()=>dispatch(actions.updateStatus)}/>
             
             <div className={styles.contacts_block}>
                 <span className={styles.contacts_header}>My contacts: </span>
-                <div className={styles.contact}> {props.userInfo.contacts.facebook ? `facebook: ${props.userInfo.contacts.facebook}` : ''}</div>
-                <div className={styles.contact}> {props.userInfo.contacts.website ? `website: ${props.userInfo.contacts.website}` : ''}</div>
-                <div className={styles.contact}> {props.userInfo.contacts.vk ? `vk: ${props.userInfo.contacts.vk}` : ''}</div>
-                <div className={styles.contact}> { props.userInfo.contacts.twitter ? `twitter: ${props.userInfo.contacts.twitter}` : '' }</div >
-                <div className={styles.contact}> { props.userInfo.contacts.instagram ? `instagram: ${props.userInfo.contacts.instagram}` : '' }</div >
-                <div className={styles.contact}> { props.userInfo.contacts.youtube ? `youtube: ${props.userInfo.contacts.youtube}` : '' }</div >
-                <div className={styles.contact}> { props.userInfo.contacts.github ? `github: ${props.userInfo.contacts.github}` : '' }</div >
-                <div className={styles.contact}> { props.userInfo.contacts.mainLink ? `mainLink: ${props.userInfo.contacts.mainLink}` : '' }</div >
+                {contacts}
             </div>
-            <div className={styles.text}>Работа: {props.userInfo.lookingForAJob 
-                ? `я в поисках работы. (${props.userInfo.lookingForAJobDescription ? props.userInfo.lookingForAJobDescription : ''})` 
+            <div className={styles.text}>Работа: {userInfo.lookingForAJob 
+                ? `я в поисках работы. (${userInfo.lookingForAJobDescription ? userInfo.lookingForAJobDescription : ''})` 
                 : 'я трудоустроен'}</div>
-        
-
         </div>);
     }
 
-let AuthRedirectComponent = withAuThRedirect(ProfileInfo)
+// let AuthRedirectComponent = withAuThRedirect(ProfileInfo)
 
-export default AuthRedirectComponent;
+export default ProfileInfo;

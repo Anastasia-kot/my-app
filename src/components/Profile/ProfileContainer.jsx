@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
-import { setUser, addPost, updateNewText, getUserData, 
-    updateStatus, getStatus, updateProfilePhoto } from '../../redux/profile-reducer.ts';
+import { actions,   getUserData,    getStatus,   } from '../../redux/profile-reducer.ts';
 import { getPosts, getNewPostText, getUserInfo, getStatusSelector } from '../../redux/profile-selectors.js';
 
 
@@ -36,34 +35,23 @@ class ProfileContainer extends PureComponent {
     }
 
     render() { return <Profile 
-        posts={this.props.posts}
-        newPostText={this.props.newPostText}
-        userInfo={this.props.userInfo}
-        isAuth={this.props.isAuth}
-        status={this.props.status}
+     
         isOwner={this.isOwner}
 
-        
-        addPost={this.props.addPost} 
-        updateNewText={this.props.updateNewText} 
-        updateStatus={this.props.updateStatus} 
-        updateProfilePhoto={this.props.updateProfilePhoto}
+        // addPost={this.props.addPost} 
+        // updateNewText={this.props.updateNewText} 
+        // updateStatus={this.props.updateStatus} 
+        // updateProfilePhoto={this.props.updateProfilePhoto}
         />
     }
 }
 
 let MapStateToProps = (state) => ({
-    posts: getPosts(state),
-    newPostText: getNewPostText(state),
-    userInfo: getUserInfo(state),
-    status: getStatusSelector(state),
-
-    isAuth: state.authReducer.isAuth,
-    id: state.authReducer.data.id,
+     
 });
 
 
 
 
 export default connect(MapStateToProps, 
-    { setUser, addPost, updateNewText, getUserData, updateStatus, getStatus, updateProfilePhoto })(ProfileContainer);
+    { actions,   getUserData,   getStatus,  })(ProfileContainer);

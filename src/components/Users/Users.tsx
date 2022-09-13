@@ -11,7 +11,7 @@ import avatarImg from  '../../pictures/avatarImg.png';
 import { getUsersTC, User, actions, followUser, unFollowUser, setNewCurrentPage } from '../../redux/users-reducer.ts';
 import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.js';
     
-import {   UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 
 
