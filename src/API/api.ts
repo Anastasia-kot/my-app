@@ -6,11 +6,23 @@ const instance = axios.create({
     headers: { 'API-KEY': '4ad644c4-d1dd-49be-b3f0-9812e1d31045' }
 })
 
+type ResponseType = {
+    data: any,
+    resultCode: number,
+    message: []
+}
+
+enum ResultCodeEnum {
+    success = 0,
+    error = 1
+
+}
+
 
 export const usersAPI = {
     getUsersWithAPI: (count: number, currentPage: number) => {
     return instance
-        .get(`users?count=${count}&page=${currentPage}`)
+        .get<ResponseType>(`users?count=${count}&page=${currentPage}`)
         .then(response => { return response.data })
 },
     followUserWithAPI: (userId: number) => {
@@ -28,13 +40,13 @@ export const usersAPI = {
 export const profileAPI ={ 
     getUserDataWithAPI: (userId: number) => {
         return instance
-            .get(`profile/${userId}`)
+            .get<ResponseType>(`profile/${userId}`)
             .then(response => { return response.data })
     },
 
     updateStatusWithAPI : (status: string) => {
         return instance
-            .put(`profile/status/`, { status: status })
+            .put<ResponseType>(`profile/status/`, { status: status })
             .then(response => {
                 return response.data.data
             })
@@ -43,7 +55,7 @@ export const profileAPI ={
     getStatusWithAPI: (userId: number) => {
 
         return instance
-            .get(`profile/status/${userId}`)
+            .get<ResponseType>(`profile/status/${userId}`)
             .then(response => {
 
 
@@ -56,7 +68,7 @@ export const profileAPI ={
         formData.append('image', file)
 
         return instance
-            .put(`profile/photo`,
+            .put<ResponseType>(`profile/photo`,
                 formData,
                 {
                     headers: {
@@ -73,13 +85,13 @@ export const profileAPI ={
 export const authAPI = {
     getAuthUserDataWithAPI: () => {
         return instance
-            .get(`auth/me`)
+            .get<ResponseType>(`auth/me`)
             .then(response => { return response.data })
     },
 
     loginWithAPI: (email: string, password:string, rememberMe:boolean) => {
         return instance
-            .post(`/auth/login`, { email: email, password: password, rememberMe: rememberMe })
+            .post<ResponseType>(`/auth/login`, { email: email, password: password, rememberMe: rememberMe })
             .then(response => {
                 return response.data.data
             })

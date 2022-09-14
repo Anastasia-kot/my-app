@@ -13,6 +13,7 @@ let reducers = combineReducers({
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     authReducer: authReducer,
+    // authPage: authReducer,
 
 })
 

@@ -7,7 +7,7 @@ import { Pagination } from 'antd';
 import Preloader from '../Services/Preloader';
 
 import { getUsersTC, User, actions, followUser, unFollowUser, setNewCurrentPage } from '../../redux/users-reducer.ts';
-import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.js';
+import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.ts';
     
 import { UserOutlined } from '@ant-design/icons';
 
@@ -16,11 +16,11 @@ import { UserOutlined } from '@ant-design/icons';
 const Users: React.FC = ( ) => {
 
     const count = useSelector(getCount);
-    const users = useSelector(getUsers);
+    const users: Array<User> = useSelector(getUsers);
     const totalCount = useSelector(getTotalCount);
     const currentPage = useSelector(getCurrentPage);
     const isFetching = useSelector(getIsFetching);
-    const followingInProgress = useSelector(getFollowingInProgress);
+    const followingInProgress: Array<number> = useSelector(getFollowingInProgress);
 
 
     const dispatch = useDispatch();
@@ -52,10 +52,9 @@ const Users: React.FC = ( ) => {
         [dispatch]
     ); 
 
-   
-
 
     return (<div>
+        
         <Pagination
             showSizeChanger
             onShowSizeChange={onShowSizeChange}

@@ -1,9 +1,7 @@
-import './App.css';
-// import 'antd/dist/antd.css';
 import React, { Suspense } from 'react';
 
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout } from 'antd';
+import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,38 +11,14 @@ import MyHeader  from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/LoginPage/Login';
 import Preloader from './components/Services/Preloader';
-import Profile  from './components/Profile/Profile';
+import Profile  from './components/Profile/Profile.tsx';
 
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs.tsx'));
 const Users = React.lazy(() => import('./components/Users/Users.tsx'));
 
-
-
-
-const {  Content, Sider } = Layout;
-const items1 = ['1', '2', '3'].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-  const key = String(index + 1);
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
-
-
-
-
+const {  Content } = Layout;
+ 
+ 
 
 
 const App = React.memo((props) => {
@@ -55,7 +29,7 @@ const App = React.memo((props) => {
 
       React.useEffect(() => {
         dispatch( getInitialized())
-      }, [])
+      }, [dispatch])
 
 
     if (!initialized) {return <Preloader/>}

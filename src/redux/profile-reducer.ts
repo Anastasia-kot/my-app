@@ -141,6 +141,7 @@ export const getUserData = (userId: number) => {
 
 export const updateProfilePhoto = (file: any) => 
     (dispatch: Dispatch<ActionsTypes>) => {
+        debugger
         try {
             profileAPI.updateProfilePhotoWithAPI(file)
             .then(response => {

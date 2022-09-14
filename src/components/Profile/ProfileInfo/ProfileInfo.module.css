@@ -1,4 +1,11 @@
- .avatar {
+.photoBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap:10px
+}
+
+.avatar {
   height: 100px;
   width: 100px;
 }

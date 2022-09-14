@@ -5,19 +5,6 @@ import { mappingFunction } from "../utils/mapHelper";
 
  
 
-type InitialStateType = typeof initialState;
-export type User = {
-    name: string | null,
-    id: number,
-    uniqueUrlName: null | string,
-    photos: {
-        large: null | string,
-        small: null | string,
-    },
-    status: null | string,
-    followed: boolean
-}
-
 
 let initialState = {
     users: [] as Array<User>,
@@ -25,7 +12,6 @@ let initialState = {
     count: 10 as number,
     currentPage: 1 as number,
     isFetching: false as boolean,
-
     followingInProgress: [] as Array<number>,
 };
 
@@ -153,3 +139,27 @@ export const followUser = (userId: number) => (dispatch: Dispatch<ActionsTypes>)
 
 
 export default usersReducer;
+
+
+
+
+
+
+
+
+
+
+
+
+type InitialStateType = typeof initialState;
+export type User = {
+    name: string | null,
+    id: number,
+    uniqueUrlName: null | string,
+    photos: {
+        large: null | string,
+        small: null | string,
+    },
+    status: null | string,
+    followed: boolean
+}

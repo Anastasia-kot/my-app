@@ -58,7 +58,9 @@ export const getInitialized = () => { //перезагрузка страниц�
     return async (dispatch: Dispatch<ActionsTypes>) => {
         let response = await authAPI.getAuthUserDataWithAPI()
         dispatch(actions.setAuthUserData(response.data))
-        dispatch(actions.setToggleLogIn(true)) // уточнить эту строку  
+         if (response.resultCode === 0) {
+            dispatch(actions.setToggleLogIn(true)) // уточнить эту строку  
+        }
         dispatch(actions.setInitialized(true))
     }
 }
@@ -85,6 +87,8 @@ export const getLogined = (email:string, password:string, rememberMe: boolean) =
 export const getUnLogined = () => {
     return async (dispatch:Dispatch<ActionsTypes>) => {
         let response = await authAPI.logOutWithAPI()
+        
+        if (response.resultCode ===0) {
         dispatch(actions.setToggleLogIn(false))
          
         dispatch(actions.setAuthUserData({
@@ -92,6 +96,7 @@ export const getUnLogined = () => {
             id: null,
             login: null
         }))
+        }
     };
 }
 
