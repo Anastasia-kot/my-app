@@ -6,7 +6,7 @@ import {  useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 
-const Login = React.memo(( ) => {
+export const Login = React.memo(( ) => {
 
     const isAuth = useSelector(state => state.authReducer.isAuth);
 
@@ -66,5 +66,4 @@ const Login = React.memo(( ) => {
 
 
  
-
-export default Login;
+ 

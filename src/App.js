@@ -7,21 +7,21 @@ import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInitialized } from './redux/auth-reducer.ts';
 
-import MyHeader  from './components/Header/Header';
-import Navbar from './components/Navbar/Navbar';
-import Login from './components/LoginPage/Login';
-import Preloader from './components/Services/Preloader';
-import Profile  from './components/Profile/Profile.tsx';
+import { MyHeader }  from './components/Header/Header';
+import { Navbar } from './components/Navbar/Navbar';
+import { Login } from './components/LoginPage/Login';
+import { Preloader } from './components/Services/Preloader';
+import { Profile }  from './components/Profile/Profile.tsx';
+import { Users } from './components/Users/Users.tsx';
 
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs.tsx'));
-const Users = React.lazy(() => import('./components/Users/Users.tsx'));
-
+ 
 const {  Content } = Layout;
  
  
 
 
-const App = React.memo((props) => {
+export const App = React.memo((props) => {
 
     const initialized = useSelector(state=>state.authReducer.initialized);
 
@@ -79,6 +79,6 @@ const App = React.memo((props) => {
 
 
 
-export default App;
+ 
 
 

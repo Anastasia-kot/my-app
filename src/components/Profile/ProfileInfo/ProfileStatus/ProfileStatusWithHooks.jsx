@@ -6,7 +6,7 @@ import { getStatusSelector } from '../../../../redux/profile-selectors';
 
 
 
-const ProfileStatusWithHooks = React.memo(() => {
+export const ProfileStatusWithHooks = React.memo(() => {
 
     let [status, setStatus] = useState(useSelector(getStatusSelector));
     const [editMode, setEditMode] = useState(false);
@@ -56,4 +56,4 @@ const ProfileStatusWithHooks = React.memo(() => {
 })
 
 
-export default ProfileStatusWithHooks;
+ 

@@ -10,7 +10,7 @@ type Props = {
     setNewCurrentPage: (p: number, count: number) => void;
 }
 
-const Paginator:React.FC<Props> = React.memo((props) => {
+export const Paginator: React.FC<Props> = React.memo((props) => {
 
     let pagesCount = Math.ceil(props.totalCount / props.count);
 
@@ -50,4 +50,4 @@ return (<div className={styles.Paginator}>
 })
 
 
-export default Paginator;
+ 

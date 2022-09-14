@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './Dialogs.module.css';
-import DialogItem from './DialogItem/DialogItem';
+import {DialogItem} from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { Navigate } from 'react-router-dom';
-import { withAuThRedirect } from '../../HOC/AuthRedirect';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../redux/dialogs-reducer.ts';
 
- export const Dialogs = () => {
+const Dialogs = () => {
      
      const dialogsPage = useSelector(state => state.dialogsPage);
      const isAuth = useSelector(state => state.authReducer.isAuth);     
@@ -47,7 +46,5 @@ import { actions } from '../../redux/dialogs-reducer.ts';
     )
 }
 
-
-// let AuthRedirectComponent = withAuThRedirect(Dialogs)   // refactoiring HOC,  because useSelector without props 
 
 export default Dialogs;

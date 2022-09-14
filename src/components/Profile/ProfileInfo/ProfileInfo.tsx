@@ -2,16 +2,16 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // @ts-ignore
 import styles from './ProfileInfo.module.css';
-import Preloader from '../../Services/Preloader';
-import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
+import { Preloader } from '../../Services/Preloader';
+import { ProfileStatusWithHooks } from './ProfileStatus/ProfileStatusWithHooks';
 // @ts-ignore
-import {  updateProfilePhoto, updateStatus } from '../../../redux/profile-reducer.ts';
-import { getStatusSelector, getUserInfo } from '../../../redux/profile-selectors';
+import { updateProfilePhoto } from '../../../redux/profile-reducer.ts';
+import { getUserInfo } from '../../../redux/profile-selectors';
 import { UserOutlined } from '@ant-design/icons';
 
 
 
-const ProfileInfo = ({isOwner}) => {
+export const ProfileInfo = ({isOwner}) => {
     
 //state
 
@@ -81,6 +81,4 @@ const ProfileInfo = ({isOwner}) => {
         </div>);
     }
 
-// let AuthRedirectComponent = withAuThRedirect(ProfileInfo)
-
-export default ProfileInfo;
+ 

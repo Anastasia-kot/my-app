@@ -1,19 +1,20 @@
 import React from 'react';
+import { UserOutlined } from '@ant-design/icons';
+import styles from './Users.module.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import styles from './Users.module.css';
-import { Pagination } from 'antd';
 
-import Preloader from '../Services/Preloader';
+import { Pagination } from 'antd';
+import { Preloader } from '../Services/Preloader';
 
 import { getUsersTC, User, actions, followUser, unFollowUser, setNewCurrentPage } from '../../redux/users-reducer.ts';
 import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.ts';
     
-import { UserOutlined } from '@ant-design/icons';
 
 
 
-const Users: React.FC = ( ) => {
+export const Users: React.FC = ( ) => {
 
     const count = useSelector(getCount);
     const users: Array<User> = useSelector(getUsers);
@@ -53,7 +54,7 @@ const Users: React.FC = ( ) => {
     ); 
 
 
-    return (<div>
+    return ( <div>
         
         <Pagination
             showSizeChanger
@@ -105,4 +106,4 @@ const Users: React.FC = ( ) => {
 }
 
 
-export default Users;
+ 

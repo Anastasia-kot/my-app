@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNewPostText, getPosts } from '../../../redux/profile-selectors';
-import Post from './Post/Post';
+import { Post } from './Post/Post';
 // import styles from './Posts.module.css';
-import {actions } from '../../../redux/profile-reducer.ts';
+import { actions } from '../../../redux/profile-reducer.ts';
 
 
-const Posts = ( ) => {
+export const Posts = ( ) => {
   
 //state
     const posts = useSelector(getPosts);
@@ -45,4 +45,3 @@ const Posts = ( ) => {
     );
 }
 
-export default Posts;

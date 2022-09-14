@@ -24,7 +24,7 @@ const items = [
 
  
 
-const Navbar = () => {
+export const Navbar = () => {
 
     const navigate = useNavigate();
 
@@ -68,7 +68,6 @@ const Navbar = () => {
         </div>);
 }
 
-export default Navbar;
-
+ 
 
 

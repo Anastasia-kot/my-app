@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './Profile.module.css';
 // @ts-ignore
-import Posts from './Posts/Posts.tsx';
-// @ts-ignore
-import ProfileInfo from './ProfileInfo/ProfileInfo.tsx';
+import { Posts } from './Posts/Posts.tsx';
+import { ProfileInfo } from './ProfileInfo/ProfileInfo.tsx';
 import { useSelector } from 'react-redux';
 // @ts-ignore
 import {  getUserData, getStatus } from '../../redux/profile-reducer.ts';
@@ -12,7 +11,7 @@ import { useParams, Navigate } from "react-router-dom";
  
 
 
-const Profile = React.memo(() => {
+export const Profile = React.memo(() => {
 
 // state
  
@@ -57,4 +56,4 @@ const Profile = React.memo(() => {
     );
 })
 
-export default Profile;
+ 

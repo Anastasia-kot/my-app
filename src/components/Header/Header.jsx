@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
 
-const MyHeader = React.memo(() => {
+export const MyHeader = React.memo(() => {
 
     const isAuth = useSelector(state=> state.authReducer.isAuth);
     const myLogin = useSelector(state => state.authReducer.data.login);
@@ -49,4 +49,4 @@ return (
             </div>
     </Header>)})
 
-export default MyHeader;
+ 

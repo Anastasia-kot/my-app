@@ -4,7 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 
 
 
-const Post = (props) => {
+export const Post = (props) => {
 
  
 
@@ -21,4 +21,4 @@ const Post = (props) => {
     );
 }
 
-export default Post;
+ 
