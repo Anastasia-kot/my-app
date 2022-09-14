@@ -1,30 +1,35 @@
 import React from 'react';
 import { useState, useEffect } from 'react'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { updateStatus } from '../../../../redux/profile-reducer.ts';
+import { getStatusSelector } from '../../../../redux/profile-selectors';
 
 
 
-const ProfileStatusWithHooks = React.memo((props) => {
-    useEffect( () =>{
-        setStatus(props.status)
-    },
-        [props.status]
-    );
-    
-    
-    
-    
-    let [editMode, setEditMode] = useState(false);
+const ProfileStatusWithHooks = React.memo(() => {
 
-    let activateEditMode = () => { 
+    let [status, setStatus] = useState(useSelector(getStatusSelector));
+    const [editMode, setEditMode] = useState(false);
+
+
+    const dispatch = useDispatch();
+ 
+    useEffect( () => { 
+        setStatus(status) 
+    }, [status]);
+    
+    
+    
+    const activateEditMode = () => { 
         setEditMode(true)
     }
-    let deActivateEditMode = () => {
+    const deActivateEditMode = () => {
         setEditMode(false)
-        props.updateStatus(status)
+        console.log(status)
+        dispatch(updateStatus(status))
     }
 
 
-    let [status, setStatus] = useState(props.status);
         return (
             <div>
                 {

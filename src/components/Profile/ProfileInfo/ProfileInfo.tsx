@@ -16,7 +16,6 @@ const ProfileInfo = ({isOwner}) => {
 //state
 
     const userInfo = useSelector(getUserInfo);
-    const status = useSelector(getStatusSelector);
     
     const [isChangingPhoto, setIsChangingPhoto] = React.useState(false);    
     const [isLoadingPhoto, setIsLoadingPhoto] = React.useState(false);    
@@ -46,7 +45,7 @@ const ProfileInfo = ({isOwner}) => {
     React.useEffect(
        ()=>{
             setIsLoadingPhoto(false)
-        }, [userInfo.photos.large] 
+        }, [userInfo] 
     )
 
     if (!userInfo ) { return <Preloader />} 
@@ -70,7 +69,7 @@ const ProfileInfo = ({isOwner}) => {
 
             <div className={styles.text}> {userInfo.fullName ? userInfo.fullName : '' }</div>
 
-            <ProfileStatusWithHooks status={status} updateStatus={()=>dispatch(updateStatus)}/>
+            <ProfileStatusWithHooks />
             
             <div className={styles.contacts_block}>
                 <span className={styles.contacts_header}>My contacts: </span>

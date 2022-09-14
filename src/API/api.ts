@@ -7,15 +7,24 @@ const instance = axios.create({
 })
 
 type ResponseType = {
-    data: any,
-    resultCode: number,
-    message: []
+    data: {
+        data: any
+        fieldsErrors: Array<any>,
+        messages: Array<any>,
+        resultCode:  ResultCodeEnum,
+    },
+    status: number
+    statusText: string
 }
 
-enum ResultCodeEnum {
-    success = 0,
-    error = 1
 
+export enum ResultCodeEnum {
+    success = 0,
+    error = 1,
+}
+export enum ResponseStatusEnum {
+    success = 200,
+    error = 400,
 }
 
 
@@ -41,14 +50,14 @@ export const profileAPI ={
     getUserDataWithAPI: (userId: number) => {
         return instance
             .get<ResponseType>(`profile/${userId}`)
-            .then(response => { return response.data })
+            .then(response => { return response})
     },
 
-    updateStatusWithAPI : (status: string) => {
+    updateStatusWithAPI: (status: string) => {
         return instance
             .put<ResponseType>(`profile/status/`, { status: status })
             .then(response => {
-                return response.data.data
+                return response 
             })
     },
 
@@ -59,11 +68,11 @@ export const profileAPI ={
             .then(response => {
 
 
-                return response.data
+                return response 
             })
     },
 
-    updateProfilePhotoWithAPI : (file) => {
+    updateProfilePhotoWithAPI: (file) => {
         const formData = new FormData();
         formData.append('image', file)
 
@@ -77,7 +86,7 @@ export const profileAPI ={
                 }
             )
             .then(response => {
-                return response.data.data.photos
+                return response
             })
     },
 }

@@ -1,7 +1,7 @@
 import { InferActionsTypes } from './redux-store';
 import { Dispatch } from "react";
-import { profileAPI } from "../API/api.ts";
- 
+import { profileAPI,  ResponseStatusEnum } from "../API/api.ts";
+  
 
 type InitialStateType = typeof initialState;
 
@@ -130,52 +130,57 @@ export const actions = {
 
 export const getUserData = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        // try{
-        let response = await profileAPI.getUserDataWithAPI(userId)
-            dispatch(actions.setUser(response))
-        // } catch(error) {
-        //     alert ('some error. Try again later')             
-        // }
+        try {
+            let response = await profileAPI.getUserDataWithAPI(userId)
+            if (response.status === ResponseStatusEnum.success) {
+                dispatch(actions.setUser(response.data))
+            }
+        } catch(error) {
+            alert ('some error. Try again later')             
+        }
     }
 }
 
-export const updateProfilePhoto = (file: any) => 
-    (dispatch: Dispatch<ActionsTypes>) => {
-        debugger
+export const updateProfilePhoto = (file: any) => {
+    return async (dispatch: Dispatch<ActionsTypes>) => {
+        
         try {
-            profileAPI.updateProfilePhotoWithAPI(file)
-            .then(response => {
-                dispatch(actions.setPhoto(response))
-            })
+            let response = await profileAPI.updateProfilePhotoWithAPI(file)
+            if (response.status === ResponseStatusEnum.success) {
+                dispatch(actions.setPhoto(response.data.data.photos))
+            }
         } catch(error) {
             alert ('some error. Try again later') 
         }
+    }
 }
 
 
 export const getStatus = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        // try {
-        let response = await profileAPI.getStatusWithAPI(userId)
-            dispatch(actions.setStatus(response))
-        // } catch (error) {
-        //     alert('some error. Try again later')
-        // }    
+        try {
+            let response = await profileAPI.getStatusWithAPI(userId)
+            if (response.status === ResponseStatusEnum.success) {
+                dispatch(actions.setStatus(response.data))
+            }
+        } catch (error) {
+            alert('some error. Try again later')
+        }    
     }
 }
 
-export const updateStatus = (status: string) => 
-    (dispatch: Dispatch<ActionsTypes>) => {
+export const updateStatus = (status: string) => {
+    return async (dispatch: Dispatch<ActionsTypes>) => {
         try {
-            profileAPI.updateStatusWithAPI(status)
-                .then(response => {
+            let response = await profileAPI.updateStatusWithAPI(status)
+            if (response.status === ResponseStatusEnum.success) { 
                     dispatch(actions.setStatus(status))
-                })  
+            }
         } catch (error) {
             alert('some error. Try again later')
         }
-}
-
+    }
+}   
 
   
 
