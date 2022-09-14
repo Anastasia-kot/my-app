@@ -2,15 +2,19 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik'; 
 import styles from './Login.module.css';
 import { getLogined } from '../../redux/auth-reducer.ts';
-import { connect } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 
-const Login = React.memo((props) => {
-    if (props.isAuth) return <Navigate replace to='/profile' />
+const Login = React.memo(( ) => {
+
+    const isAuth = useSelector(state => state.authReducer.isAuth);
+
+    const dispatch = useDispatch();
+
+    if (isAuth) return <Navigate replace to='/users' />
 
     return (
-    // <h1 className={styles.h1}> LOGIN </h1>
     
         <div className={styles.login}>
             <Formik
@@ -28,7 +32,7 @@ const Login = React.memo((props) => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        props.getLogined( values.email, values.password, values.rememberMe )
+                        dispatch(getLogined( values.email, values.password, values.rememberMe ))
                         setSubmitting(false);
                     }, 400);
                 }}
@@ -61,10 +65,6 @@ const Login = React.memo((props) => {
 })
 
 
-const mapStateToProps = (state) => {
-    return {
-        isAuth: state.authReducer.isAuth
-    }
-};
+ 
 
-export default connect(mapStateToProps, { getLogined })(Login);
+export default Login;

@@ -1,6 +1,6 @@
 import { InferActionsTypes } from './redux-store';
 import { Dispatch } from 'react';
-import { followUserWithAPI, getUsersWithAPI, unfollowUserWithAPI } from "../API/api";
+import { usersAPI    } from "../API/api.ts";
 import { mappingFunction } from "../utils/mapHelper";
 
  
@@ -112,7 +112,7 @@ export const actions = {
 export const getUsersTC = (count: number, currentPage: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         dispatch(actions.setIsFetchingStatus(true));
-        let response = await getUsersWithAPI(count, currentPage)
+        let response = await usersAPI.getUsersWithAPI(count, currentPage)
         if (response?.items) {
             dispatch(actions.setUsers(response.items));
             dispatch(actions.setTotalUsersCount(response.totalCount));
@@ -125,7 +125,7 @@ export const setNewCurrentPage = (newCurrentPage: number, count: number ) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         dispatch(actions.setCurrentPage(newCurrentPage));
         dispatch(actions.setIsFetchingStatus(true));
-        let response = await getUsersWithAPI(count, newCurrentPage);
+        let response = await usersAPI.getUsersWithAPI(count, newCurrentPage);
         dispatch(actions.setUsers(response.items));
         dispatch(actions.setIsFetchingStatus(false));
     }
@@ -144,10 +144,10 @@ const _toggleFollowUnfollow = (dispatch: Dispatch<ActionsTypes>, userId: number,
 }
 
 export const unFollowUser = (userId: number) => (dispatch: Dispatch<ActionsTypes>) => {
-    _toggleFollowUnfollow(dispatch, userId, unfollowUserWithAPI, actions.unFollow)
+    _toggleFollowUnfollow(dispatch, userId, usersAPI.unfollowUserWithAPI, actions.unFollow)
 }
 export const followUser = (userId: number) => (dispatch: Dispatch<ActionsTypes>) => {
-    _toggleFollowUnfollow(dispatch, userId, followUserWithAPI, actions.follow)
+    _toggleFollowUnfollow(dispatch, userId, usersAPI.followUserWithAPI, actions.follow)
 }
 
 

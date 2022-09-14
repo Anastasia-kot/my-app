@@ -5,8 +5,6 @@ import styles from './Users.module.css';
 import { Pagination } from 'antd';
 
 import Preloader from '../Services/Preloader';
-import Paginator from '../common/Paginator.tsx';
-import avatarImg from  '../../pictures/avatarImg.png';
 
 import { getUsersTC, User, actions, followUser, unFollowUser, setNewCurrentPage } from '../../redux/users-reducer.ts';
 import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.js';
@@ -74,12 +72,13 @@ const Users: React.FC = ( ) => {
                 <div key={u.id} className={styles.userCardContainer}>
                     <div className={styles.userCard}>
                         
-                        <NavLink to={'/profile/' + u.id}> 
+                        <NavLink to={'/profile/' + u.id}>
+                            <div className={styles.avatar}> 
                             {u.photos.small
-                                ? <img className={styles.avatar} alt='avatar' src={u.photos.small} /> 
-                                : <UserOutlined style={{ fontSize: '50px', color: 'black', width: '60px', height:'60px' }} />
+                                ? <img   alt='avatar' src={u.photos.small} /> 
+                                : <UserOutlined   style={{ fontSize: '100px',}} />
                             }
-                           
+                            </div>
                         </NavLink>
                         
                         <div className={styles.userInfoContainer}>

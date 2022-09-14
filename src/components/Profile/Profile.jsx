@@ -3,19 +3,19 @@ import styles from './Profile.module.css';
 import Posts from './Posts/Posts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import { useSelector } from 'react-redux';
-import {   getStatusSelector, getUserInfo } from '../../redux/profile-selectors';
-import {  getUserData, getStatus, actions } from '../../redux/profile-reducer.ts';
+import {  getUserData, getStatus } from '../../redux/profile-reducer.ts';
 import { useDispatch } from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
+ 
 
 
-
-const Profile = React.memo((props) => {
+const Profile = React.memo(() => {
 
 // state
  
     const id = useSelector(state => state.authReducer.data.id);
     
+    const isAuth = useSelector(state => state.authReducer.isAuth);     
     let URLuserId = useParams().id; 
              
     let isOwner = false;
@@ -26,10 +26,12 @@ const Profile = React.memo((props) => {
     const dispatch = useDispatch();
 
     const refresh = () => {
+        isOwner = false;
         myId = URLuserId;
+        console.log('myId=', myId)
         if (!myId) { 
-            myId = id; 
-            isOwner = true 
+            myId = id;
+            isOwner = true  
         }
 
         dispatch(getUserData(myId))
@@ -38,13 +40,13 @@ const Profile = React.memo((props) => {
 
     React.useEffect( ( ) => {
         refresh()
-    }, [id, myId, URLuserId]
+    }, [URLuserId, isAuth]
 
     )
   
  
 
-
+    if (!isAuth) { return <Navigate to='/login' /> }
     return (
         <div className={styles.profile}>
             <ProfileInfo isOwner={isOwner} /> 

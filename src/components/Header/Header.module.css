@@ -1,40 +1,29 @@
 .header{
-  grid-area:h;
-  background-color: lightgrey;
-  border: 10px dotted black;
-  border-style: dotted dotted none dotted;
+  
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-
-
     color: white;  
     text-decoration: none;
-    text-transform: uppercase;
+     
 }
 
 .logo {
   width:auto;
-  height: 50px;
-  border-radius: 10px;
-  padding: 5px;
-    color: white;
-
+  height: 150px;
+  position: absolute;
+ 
 }
 
 .login {
   text-align: right;
-  line-height: 30px;
-  font-size: 30px;
-  border: 1px dotted black;
-  padding: 3px;
-      color: white;
-   
+  font-size: 18px;
+
+  color: white;  
 }
 
 .logoutButton {
-  padding: 3px;
-  vertical-align: middle;
-
+    height: min-content;
+    margin-left: 10px;
 }

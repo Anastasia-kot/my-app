@@ -7,7 +7,7 @@ import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
 import {  actions } from '../../../redux/profile-reducer.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStatusSelector, getUserInfo } from '../../../redux/profile-selectors';
-import { Navigate } from 'react-router-dom';
+import { UserOutlined } from '@ant-design/icons';
 
 
 
@@ -18,7 +18,6 @@ const ProfileInfo = ({isOwner}) => {
     const userInfo = useSelector(getUserInfo);
     const status = useSelector(getStatusSelector);
     const isAuth = useSelector(state => state.authReducer.isAuth);
-    const id = useSelector(state => state.authReducer.data.id);
      
  
     const contacts = [];
@@ -38,18 +37,26 @@ const ProfileInfo = ({isOwner}) => {
         }
     }; 
 
-    // if (!isAuth) { <Navigate to='/login'/>}
     if (!userInfo ) { return <Preloader />} 
     return (<div>
-            <img className={styles.avatar} alt='user avatar' src={userInfo.photos.large ? userInfo.photos.large: avatarImg} />
-            
-            {
-            // isOwner && 
+
+        {userInfo.photos.large
+            ? <img alt='avatar' src={userInfo.photos.large} className={styles.avatar} />
+            : <UserOutlined style={{ fontSize: '100px' }} />
+        }
+ 
+
+{/* change pgoto block */}
+        <div>isOwner={+isOwner}, isAuth={+isAuth}</div>
+        {      isOwner && 
             <input type='file' onChange={(e) => updateProfilePhotoOnChange(e)}/>}
+
+
+
 
             <div className={styles.text}> {userInfo.fullName ? userInfo.fullName : '' }</div>
 
-        <ProfileStatusWithHooks status={status} updateStatus={()=>dispatch(actions.updateStatus)}/>
+            {/* <ProfileStatusWithHooks status={status} updateStatus={()=>dispatch(actions.updateStatus)}/> */}
             
             <div className={styles.contacts_block}>
                 <span className={styles.contacts_header}>My contacts: </span>

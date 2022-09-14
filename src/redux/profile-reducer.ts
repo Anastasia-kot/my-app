@@ -1,6 +1,6 @@
 import { InferActionsTypes } from './redux-store';
 import { Dispatch } from "react";
-import { getUserDataWithAPI,  getStatusWithAPI, updateStatusWithAPI, updateProfilePhotoWithAPI } from "../API/api";
+import { profileAPI } from "../API/api.ts";
  
 
 type InitialStateType = typeof initialState;
@@ -131,7 +131,7 @@ export const actions = {
 export const getUserData = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         // try{
-            let response = await getUserDataWithAPI(userId)
+        let response = await profileAPI.getUserDataWithAPI(userId)
             dispatch(actions.setUser(response))
         // } catch(error) {
         //     alert ('some error. Try again later')             
@@ -142,7 +142,7 @@ export const getUserData = (userId: number) => {
 export const updateProfilePhoto = (file: any) => 
     (dispatch: Dispatch<ActionsTypes>) => {
         try {
-            updateProfilePhotoWithAPI(file)
+            profileAPI.updateProfilePhotoWithAPI(file)
             .then(response => {
                 dispatch(actions.setPhoto(response))
             })
@@ -155,7 +155,7 @@ export const updateProfilePhoto = (file: any) =>
 export const getStatus = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         // try {
-            let response = await getStatusWithAPI(userId)
+        let response = await profileAPI.getStatusWithAPI(userId)
             dispatch(actions.setStatus(response))
         // } catch (error) {
         //     alert('some error. Try again later')
@@ -166,7 +166,7 @@ export const getStatus = (userId: number) => {
 export const updateStatus = (status: string) => 
     (dispatch: Dispatch<ActionsTypes>) => {
         try {
-            updateStatusWithAPI(status)
+            profileAPI.updateStatusWithAPI(status)
                 .then(response => {
                     dispatch(actions.setStatus(status))
                 })  

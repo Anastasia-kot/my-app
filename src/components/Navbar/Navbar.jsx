@@ -29,7 +29,7 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const onClick  = e => {
-         let adress = '';
+        let adress = '';
         switch (e.key) {
             case 'sub1': adress = '/profile'; break;
             case 'sub11': adress = '/profile'; break;

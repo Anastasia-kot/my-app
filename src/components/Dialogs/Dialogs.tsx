@@ -10,7 +10,7 @@ import { actions } from '../../redux/dialogs-reducer.ts';
  export const Dialogs = () => {
      
      const dialogsPage = useSelector(state => state.dialogsPage);
-    //  const isAuth = useSelector(state => state.authReducer.isAuth);    // refactoiring with AuTh Redirect logic
+     const isAuth = useSelector(state => state.authReducer.isAuth);     
  
      const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ import { actions } from '../../redux/dialogs-reducer.ts';
 
     let newTextBody = dialogsPage.newMessageText;
 
- 
+     if (!isAuth) { return <Navigate to='/login'/> }
     return (
         <div className={styles.dialogsContent}>
             <div>

@@ -3,6 +3,11 @@ import styles from './Header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUnLogined } from '../../redux/auth-reducer.ts';
 import {  Layout } from 'antd';
+ import {ReactComponent as LO } from '../../pictures/mao_logo.svg';
+import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
+ 
 
 
 const { Header } = Layout;
@@ -10,7 +15,7 @@ const { Header } = Layout;
 const MyHeader = React.memo((props) => {
 
     const isAuth = useSelector(state=> state.authReducer.isAuth);
-    const data = useSelector(state => state.authReducer.data);
+    const myLogin = useSelector(state => state.authReducer.data.login);
         
     const dispatch = useDispatch();
 
@@ -18,24 +23,30 @@ const MyHeader = React.memo((props) => {
        dispatch( getUnLogined())
     }
 
+    const navigate = useNavigate();
 
+    console.log(myLogin)
 return (
       
 
     <Header className="header">
+        <div className={styles.header}>
         <div className="logo" />
-        <img className={styles.logo} src='https://static-cse.canva.com/blob/232570/coco.jpg' alt='logo' />
-
+             <LO className={styles.logo} alt='logo' /> 
  
-        <span className={styles.login}>
-            {isAuth
-                ? <>
-                    {data.login}
-                    <button className={styles.logoutButton} onClick={() => getUnLoginedOnClick()}>
-                        log_out
-                    </button></>
-                : 'login'}
-        </span>
+            <span className={styles.login}> {myLogin}
+            
+                       
+                <Button 
+                    className={styles.logoutButton} 
+                    onClick={() => {
+                            isAuth ? getUnLoginedOnClick() : navigate('/login', { replace: true })
+                        }}>
+                    {isAuth ? 'log_out' : 'login'}
+                </Button>
+                  
+         </span>
+            </div>
     </Header>)})
 
 export default MyHeader;

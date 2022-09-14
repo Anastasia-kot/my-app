@@ -1,6 +1,11 @@
-.avatar, .loader {
+.avatar {
  height: 100px;
  width: 100px;
+ display: block;
+ box-sizing: border-box;
+ }
+.avatar span {
+ margin: auto
 }
 
 .userCard {

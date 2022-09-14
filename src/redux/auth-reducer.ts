@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { getAuthUserDataWithAPI, loginWithAPI, logOutWithAPI } from "../API/api";
+import { authAPI } from "../API/api.ts";
 import { InferActionsTypes } from "./redux-store";
 
  
@@ -14,7 +14,6 @@ let initialState =  {
     },
     isAuth: false as boolean,
     initialized: false as boolean
-
 };
 
 
@@ -49,40 +48,45 @@ type ActionsTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
 
-    setAuthUserData : (userData: UserData) => ({ type: 'SET_AUTH_USER_DATA', userData } as const),
+    setAuthUserData: (userData: UserData) => ({ type: 'SET_AUTH_USER_DATA', userData } as const),
     setToggleLogIn: (isAuth: boolean) => ({ type: 'TOGGLE_LOG_IN', isAuth } as const),
     setInitialized: (initialized: boolean) => ({ type: 'SET_INITIALIZED', initialized } as const),
 }
 
 
-export const getInitialized = () => {
+export const getInitialized = () => { //перезагрузка страницы
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        let response = await  getAuthUserDataWithAPI()
+        let response = await authAPI.getAuthUserDataWithAPI()
         dispatch(actions.setAuthUserData(response.data))
+        dispatch(actions.setToggleLogIn(true)) // уточнить эту строку  
         dispatch(actions.setInitialized(true))
     }
 }
 
-export const getAuthUserData = () => {
-    return async (dispatch:Dispatch<ActionsTypes>) => {
-        let response = await getAuthUserDataWithAPI()
-        dispatch(setAuthUserData(response.data))  
-    }
-}
+
 
 export const getLogined = (email:string, password:string, rememberMe: boolean) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        let response = await loginWithAPI(email, password, rememberMe)
-        getAuthUserData()
-        dispatch(actions.setToggleLogIn(true))        
+        let response = await authAPI.loginWithAPI(email, password, rememberMe)
+         
+        if (response) {
+
+             
+            let response1 = await authAPI.getAuthUserDataWithAPI()
+            dispatch(actions.setAuthUserData(response1.data))
+                 
+            dispatch(actions.setToggleLogIn(true))
+            dispatch(actions.setInitialized(true))
+        }
     }
 }
 
 
 export const getUnLogined = () => {
     return async (dispatch:Dispatch<ActionsTypes>) => {
-        let response = await logOutWithAPI()
+        let response = await authAPI.logOutWithAPI()
         dispatch(actions.setToggleLogIn(false))
+         
         dispatch(actions.setAuthUserData({
             email: null,
             id: null,

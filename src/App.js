@@ -14,8 +14,6 @@ import Navbar from './components/Navbar/Navbar';
 import Login from './components/LoginPage/Login';
 import Preloader from './components/Services/Preloader';
 import Profile  from './components/Profile/Profile';
-// const ProfileContainerWithParams = React.lazy(() => import('./components/Profile/ProfileContainerWithParams'));
-
 
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs.tsx'));
 const Users = React.lazy(() => import('./components/Users/Users.tsx'));
