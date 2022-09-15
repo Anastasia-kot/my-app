@@ -14,6 +14,7 @@ import { Preloader } from './components/Services/Preloader';
 import { Profile }  from './components/Profile/Profile.tsx';
 import { Users } from './components/Users/Users.tsx';
 import { ChatPage } from './components/ChatPage/ChatPage.tsx';
+import { dialogsAPI } from './API/api.ts';
 
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs.tsx'));
  

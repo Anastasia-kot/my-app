@@ -125,12 +125,12 @@ export const dialogsAPI = {
             .put<ResponseType>(`dialogs/${id}`);
         return response.data;
     },
-    getDialogMessagesListWithAPI: async (id: number, page: number = 1, count: number = 10) => {
+    getMessagesListWithAPI: async (id: number, page: number = 1, count: number = 10) => {
         const response = await instance
             .get<ResponseType>(`dialogs/${id}/messages?page=${page}&count=${count}`);
         return response.data;
     },
-    sendDialogMessageWithAPI: async (id: number, message: string) => {
+    sendMessageWithAPI: async (id: number, message: string) => {
         const response = await instance
             .post<ResponseType>(`dialogs/${id}/messages`, { message: message });
         return response.data;
@@ -148,7 +148,6 @@ export const dialogsAPI = {
             .get<ResponseType>(`dialogs/messages/${messageId}/viewed`);
         return response.data;
     },
-
 
     replaceMessageToSpamWithAPI: async (messageId: number) => {
         const response = await instance
@@ -180,6 +179,4 @@ export const dialogsAPI = {
             .get<ResponseType>(`dialogs/messages/new/count`);
         return response.data;
     },
-
-
 }
