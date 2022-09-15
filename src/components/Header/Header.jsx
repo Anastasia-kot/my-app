@@ -25,7 +25,6 @@ export const MyHeader = React.memo(() => {
 
     const navigate = useNavigate();
 
-    console.log(myLogin)
 return (
       
 

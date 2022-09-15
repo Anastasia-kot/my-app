@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate  } from "react-router-dom";
 import { TeamOutlined , SettingOutlined, LaptopOutlined, 
-            NotificationOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
+  NotificationOutlined, UserOutlined, MessageOutlined, WechatOutlined } from '@ant-design/icons';
 import {  Layout, Menu } from 'antd';
 
 
@@ -16,6 +16,7 @@ const items = [
     getItem('Profile', 'sub1', <UserOutlined />, [
         getItem('Profile', 'sub11', <LaptopOutlined/>,  ),
         getItem('Dialogs', 'sub12', <MessageOutlined />,  ),
+        getItem('Chat', 'sub13', <WechatOutlined />,  ),
     ]),
     getItem('Users', 'sub2', <TeamOutlined /> ),
     getItem('News', 'sub3', <NotificationOutlined />, ),
@@ -34,6 +35,7 @@ export const Navbar = () => {
             case 'sub1': adress = '/profile'; break;
             case 'sub11': adress = '/profile'; break;
             case 'sub12': adress = '/dialogs'; break;
+            case 'sub13': adress = '/chat'; break;
             case 'sub2': adress = '/users'; break;
             case 'sub3': adress = '/news'; break;
             case 'sub4': adress = '/settings'; break;
