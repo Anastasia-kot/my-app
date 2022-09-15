@@ -29,54 +29,48 @@ export enum ResponseStatusEnum {
 
 
 export const usersAPI = {
-    getUsersWithAPI: (count: number, currentPage: number) => {
-    return instance
-        .get<ResponseType>(`users?count=${count}&page=${currentPage}`)
-        .then(response => { return response.data })
+    getUsersWithAPI: async (count: number, currentPage: number) => {
+    const response = await instance
+            .get<ResponseType>(`users?count=${count}&page=${currentPage}`);
+        return response.data;
 },
-    followUserWithAPI: (userId: number) => {
-    return instance
-        .post(`follow/${userId}`)
-        .then(response => { return response.data })
+    followUserWithAPI: async (userId: number) => {
+    const response = await instance
+            .post(`follow/${userId}`);
+        return response.data;
 },
-    unfollowUserWithAPI: (userId: number) => {
-    return instance
-        .delete(`follow/${userId}`)
-        .then(response => { return response.data })
+    unfollowUserWithAPI: async (userId: number) => {
+    const response = await instance
+            .delete(`follow/${userId}`);
+        return response.data;
 }
 }
 
 export const profileAPI ={ 
-    getUserDataWithAPI: (userId: number) => {
-        return instance
-            .get<ResponseType>(`profile/${userId}`)
-            .then(response => { return response})
+    getUserDataWithAPI: async (userId: number) => {
+        const response = await instance
+            .get<ResponseType>(`profile/${userId}`);
+        return response;
     },
 
-    updateStatusWithAPI: (status: string) => {
-        return instance
-            .put<ResponseType>(`profile/status/`, { status: status })
-            .then(response => {
-                return response 
-            })
+    updateStatusWithAPI: async (status: string) => {
+        const response = await instance
+            .put<ResponseType>(`profile/status/`, { status: status });
+        return response;
     },
 
-    getStatusWithAPI: (userId: number) => {
+    getStatusWithAPI: async (userId: number) => {
 
-        return instance
-            .get<ResponseType>(`profile/status/${userId}`)
-            .then(response => {
-
-
-                return response 
-            })
+        const response = await instance
+            .get<ResponseType>(`profile/status/${userId}`);
+        return response;
     },
 
-    updateProfilePhotoWithAPI: (file) => {
+    updateProfilePhotoWithAPI: async (file) => {
         const formData = new FormData();
         formData.append('image', file)
 
-        return instance
+        const response = await instance
             .put<ResponseType>(`profile/photo`,
                 formData,
                 {
@@ -84,33 +78,108 @@ export const profileAPI ={
                         'Content-Type': "multipart / form - data"
                     }
                 }
-            )
-            .then(response => {
-                return response
-            })
+            );
+        return response;
     },
 }
 
 export const authAPI = {
-    getAuthUserDataWithAPI: () => {
-        return instance
-            .get<ResponseType>(`auth/me`)
-            .then(response => { return response.data })
+    getAuthUserDataWithAPI: async () => {
+        const response = await instance
+            .get<ResponseType>(`auth/me`);
+        return response.data;
     },
 
-    loginWithAPI: (email: string, password:string, rememberMe:boolean) => {
-        return instance
-            .post<ResponseType>(`/auth/login`, { email: email, password: password, rememberMe: rememberMe })
-            .then(response => {
-                return response.data.data
-            })
+    loginWithAPI: async (email: string, password:string, rememberMe:boolean) => {
+        const response = await instance
+            .post<ResponseType>(`/auth/login`, { email: email, password: password, rememberMe: rememberMe });
+        return response.data.data;
     },
 
-    logOutWithAPI: () => {
-        return instance
-            .delete(`/auth/login`)
-            .then(response => {
-                return response.data.data
-            })
+    logOutWithAPI: async () => {
+        const response = await instance
+            .delete(`/auth/login`);
+        return response.data.data;
+    },
+
+    loginCaptchaWithAPI: async () => {
+        const response = await instance
+            .get(`security/get-captcha-url`);
+        return response.data;
+        // properties:
+        // url: url to display captcha - image
     }
+
+ 
+}
+
+export const dialogsAPI = {
+    getDialogsWithAPI: async () => {
+        const response = await instance
+            .get<ResponseType>(`dialogs`);
+        return response.data;
+    },
+
+    startDialogWithAPI: async (id: number) => {
+        const response = await instance
+            .put<ResponseType>(`dialogs/${id}`);
+        return response.data;
+    },
+    getDialogMessagesListWithAPI: async (id: number, page: number = 1, count: number = 10) => {
+        const response = await instance
+            .get<ResponseType>(`dialogs/${id}/messages?page=${page}&count=${count}`);
+        return response.data;
+    },
+    sendDialogMessageWithAPI: async (id: number, message: string) => {
+        const response = await instance
+            .post<ResponseType>(`dialogs/${id}/messages`, { message: message });
+        return response.data;
+    },
+
+
+
+
+
+
+
+
+    isMessageViewedWithAPI: async (messageId: number) => {
+        const response = await instance
+            .get<ResponseType>(`dialogs/messages/${messageId}/viewed`);
+        return response.data;
+    },
+
+
+    replaceMessageToSpamWithAPI: async (messageId: number) => {
+        const response = await instance
+            .post<ResponseType>(`dialogs/messages/${messageId}/spam`);
+        return response.data;
+    },
+
+    deleteMessageToMeOnlyWithAPI: async (messageId: number) => {
+        const response = await instance
+            .delete<ResponseType>(`dialogs/messages/${messageId}`);
+        return response.data;
+    },
+
+    restoreMessageFromDeleteAndSpamWithAPI: async (messageId: number) => {
+        const response = await instance
+            .put<ResponseType>(`dialogs/messages/${messageId}/restore`);
+        return response.data;
+    },
+
+    getMessagesNewestWithAPI: async (userId: number, date: string) => { 
+        // date - (string) - desired date(string in date format)
+        const response = await instance           
+            .get<ResponseType>(`dialogs/${userId}/messages/new?newerThen=${date}`);
+        return response.data;
+    },
+
+    getNewMessagesListWithAPI: async () => { 
+        const response = await instance           
+            .get<ResponseType>(`dialogs/messages/new/count`);
+        return response.data;
+    },
+
+
 }
