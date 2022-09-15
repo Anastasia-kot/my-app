@@ -13,14 +13,14 @@ import { Login } from './components/LoginPage/Login';
 import { Preloader } from './components/Services/Preloader';
 import { Profile }  from './components/Profile/Profile.tsx';
 import { Users } from './components/Users/Users.tsx';
+import { ChatPage } from './components/ChatPage/ChatPage.tsx';
 
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs.tsx'));
  
 const {  Content } = Layout;
  
  
-
-
+ 
 export const App = React.memo((props) => {
 
     const initialized = useSelector(state=>state.authReducer.initialized);
@@ -57,6 +57,7 @@ export const App = React.memo((props) => {
                 <Routes>
 
                   <Route path='/dialogs/*' element={<Dialogs />} />
+                  <Route path='/chat' element={<ChatPage />} />
                   <Route path='/profile/:id' element={<Profile />} />
                   <Route path='/profile/' element={<Profile />} />
                   <Route path='/users/*' element={<Users />} />

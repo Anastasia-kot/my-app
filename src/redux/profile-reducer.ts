@@ -132,8 +132,7 @@ export const getUserData = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         try {
             let response = await profileAPI.getUserDataWithAPI(userId)
-            console.log(response)
-            debugger
+            // console.log(response)
             if (response.status === ResponseStatusEnum.success) {
                 dispatch(actions.setUser(response.data))
             }

@@ -4,6 +4,7 @@ import dialogsReducer from "./dialogs-reducer.ts";
 import profileReducer from "./profile-reducer.ts";
 import authReducer from "./auth-reducer.ts";
 import usersReducer from "./users-reducer.ts";
+import chatReducer from "./chat-reducer.ts";
 
 
 
@@ -14,6 +15,7 @@ let reducers = combineReducers({
     usersPage: usersReducer,
     authReducer: authReducer,
     // authPage: authReducer,
+    chatPage: chatReducer,
 
 })
 

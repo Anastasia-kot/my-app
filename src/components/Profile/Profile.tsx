@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './Profile.module.css';
 // @ts-ignore
 import { Posts } from './Posts/Posts.tsx';
+// @ts-ignore
+
 import { ProfileInfo } from './ProfileInfo/ProfileInfo.tsx';
 import { useSelector } from 'react-redux';
 // @ts-ignore

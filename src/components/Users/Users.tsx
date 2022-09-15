@@ -16,11 +16,11 @@ import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTot
 
 export const Users: React.FC = ( ) => {
 
-    const count = useSelector(getCount);
+    const count: number = useSelector(getCount);
     const users: Array<User> = useSelector(getUsers);
-    const totalCount = useSelector(getTotalCount);
-    const currentPage = useSelector(getCurrentPage);
-    const isFetching = useSelector(getIsFetching);
+    const totalCount: number = useSelector(getTotalCount);
+    const currentPage: number = useSelector(getCurrentPage);
+    const isFetching: boolean = useSelector(getIsFetching);
     const followingInProgress: Array<number> = useSelector(getFollowingInProgress);
 
 
@@ -28,7 +28,7 @@ export const Users: React.FC = ( ) => {
 
     React.useEffect(() => {
         dispatch(getUsersTC(count, currentPage));
-    }, [])
+    }, [dispatch, count, currentPage])
 
 
     //paginator logic
@@ -36,7 +36,6 @@ export const Users: React.FC = ( ) => {
         (newCurrentPage) => dispatch(setNewCurrentPage(newCurrentPage, count))
      ; 
     const onShowSizeChange = (current, pageSize) => {
-            console.log(current, pageSize);
             dispatch(actions.setUsersOnPageCount(pageSize))
             dispatch(setNewCurrentPage(1, pageSize))
     }; 

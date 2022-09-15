@@ -34,7 +34,6 @@ export const ProfileInfo = ({isOwner}) => {
 
     let updateProfilePhotoOnChange = (e) => {
         if (e.target.files.length) {
-            debugger
             dispatch(updateProfilePhoto(e.target.files[0]))
             setIsLoadingPhoto(true)
             setIsChangingPhoto(false)
