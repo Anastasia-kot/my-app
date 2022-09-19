@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNewPostText, getPosts } from '../../../redux/profile-selectors';
+import { getNewPostText, getPosts } from '../../../redux/profile-selectors.ts';
 import { Post } from './Post/Post';
 // import styles from './Posts.module.css';
 import { actions } from '../../../redux/profile-reducer.ts';

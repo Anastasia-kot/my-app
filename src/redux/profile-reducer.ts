@@ -5,12 +5,12 @@ import { profileAPI,  ResponseStatusEnum } from "../API/api.ts";
 
 type InitialStateType = typeof initialState;
 
-type Post = { 
+export type Post = { 
     id: number, 
     message: string, 
     likeCounter: number 
 }
-type UserInfoType = {
+export type UserInfoType = {
         aboutMe:  string | null,
         contacts: {
             facebook:  string | null,
@@ -45,7 +45,6 @@ let initialState =  {
     newPostText: '',
     
     userInfo:   {
-            
             aboutMe: null as string | null,
             contacts: {
                 facebook: null as string | null,

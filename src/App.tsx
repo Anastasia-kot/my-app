@@ -5,16 +5,28 @@ import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// @ts-ignore
+
 import { getInitialized } from './redux/auth-reducer.ts';
 
 import { MyHeader }  from './components/Header/Header';
 import { Navbar } from './components/Navbar/Navbar';
 import { Login } from './components/LoginPage/Login';
-import { Preloader } from './components/Services/Preloader';
+// @ts-ignore
+import { Preloader } from './components/Services/Preloader.tsx';
+// @ts-ignore
+
 import { Profile }  from './components/Profile/Profile.tsx';
+// @ts-ignore
+
 import { Users } from './components/Users/Users.tsx';
+// @ts-ignore
+
 import { ChatPage } from './components/ChatPage/ChatPage.tsx';
-import { dialogsAPI } from './API/api.ts';
+// @ts-ignore
+
+import { getInitializedState } from './redux/auth-selectors.ts';
+// @ts-ignore
 
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs.tsx'));
  
@@ -24,7 +36,7 @@ const {  Content } = Layout;
  
 export const App = React.memo((props) => {
 
-    const initialized = useSelector(state=>state.authReducer.initialized);
+    const initialized = useSelector(getInitializedState);
 
     const dispatch = useDispatch();
 
@@ -33,12 +45,11 @@ export const App = React.memo((props) => {
       }, [dispatch])
 
 
-    if (!initialized) {return <Preloader/>}
+  if (!initialized) { return <Preloader></Preloader> }  
 
-  return (
-    <div>
-      <Layout>
-        <MyHeader  />
+  return   (<div>
+    <Layout>
+        <MyHeader />
 
       
         <Layout>
@@ -56,8 +67,8 @@ export const App = React.memo((props) => {
             >
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
-
-                  <Route path='/dialogs/*' element={<Dialogs />} />
+                  <Route path='/dialogs/:id' element={<Dialogs />} />
+                  <Route path='/dialogs/' element={<Dialogs />} />
                   <Route path='/chat' element={<ChatPage />} />
                   <Route path='/profile/:id' element={<Profile />} />
                   <Route path='/profile/' element={<Profile />} />
@@ -65,17 +76,13 @@ export const App = React.memo((props) => {
                   <Route path='/login' element={<Login />} />
                   <Route path='/' element={<Dialogs />} />
 
-
-
-
-
                 </Routes>
               </Suspense>
             </Content>
          </Layout>
       </Layout>
 
-    </div>)
+  </div>)
 })
 
 
@@ -84,3 +91,43 @@ export const App = React.memo((props) => {
  
 
 
+  // (<div>
+  //   <Layout>
+  //       <MyHeader />
+
+      
+  //       <Layout>
+  //         <Navbar />
+        
+
+
+  //           <Content
+  //             className="site-layout-background"
+  //             style={{
+  //               padding: 24,
+  //               margin: 0,
+  //               minHeight: 280,
+  //             }}
+  //           >
+  //             <Suspense fallback={<div>Loading...</div>}>
+  //               <Routes>
+
+  //                 <Route path='/dialogs/*' element={<Dialogs />} />
+  //                 <Route path='/chat' element={<ChatPage />} />
+  //                 <Route path='/profile/:id' element={<Profile />} />
+  //                 <Route path='/profile/' element={<Profile />} />
+  //                 <Route path='/users/*' element={<Users />} />
+  //                 <Route path='/login' element={<Login />} />
+  //                 <Route path='/' element={<Dialogs />} />
+
+
+
+
+
+  //               </Routes>
+  //             </Suspense>
+  //           </Content>
+  //        </Layout>
+  //     </Layout>
+
+  // </div>)

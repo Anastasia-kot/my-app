@@ -2,11 +2,12 @@ import React from 'react';
 import styles from './Header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUnLogined } from '../../redux/auth-reducer.ts';
+import { getIsAuth, getAuthLogin } from '../../redux/auth-selectors.ts';
 import {  Layout } from 'antd';
  import {ReactComponent as LO } from '../../pictures/mao_logo.svg';
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
+ 
  
 
 
@@ -14,8 +15,8 @@ const { Header } = Layout;
 
 export const MyHeader = React.memo(() => {
 
-    const isAuth = useSelector(state=> state.authReducer.isAuth);
-    const myLogin = useSelector(state => state.authReducer.data.login);
+    const isAuth = useSelector(getIsAuth);
+    const myLogin = useSelector(getAuthLogin);
         
     const dispatch = useDispatch();
 

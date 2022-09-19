@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import styles from './ChatPage.module.css'
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+// @ts-ignore
 import { sendMessage, startMessageListening, stopMessageListening } from '../../redux/chat-reducer.ts';
 
 
@@ -34,8 +37,11 @@ export const ChatPage:React.FC<{}> = () => {
         <div>
             <div> messages: {messages.map(m => 
                 <div key={messages.indexOf(m)} style={{ 'marginBottom': '10px' }}>
+                    <NavLink to={'/profile/' + m.userId} className={styles.user}>
+
                     <img src={m.photo} alt='avatar' style={{ width: '30px', 'borderRadius': '5px', 'marginRight': '10px' }}/>
-                    <b> {m.userName}</b> 
+                    <b> {m.userName}</b> <sup>id: {m.userId}</sup>
+                    </NavLink>
                     {   ': ' + m.message}
                 </div>)}
                                      

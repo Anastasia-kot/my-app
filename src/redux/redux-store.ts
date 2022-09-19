@@ -1,9 +1,14 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from 'redux-thunk';
+// @ts-ignore
 import dialogsReducer from "./dialogs-reducer.ts";
+// @ts-ignore
 import profileReducer from "./profile-reducer.ts";
+// @ts-ignore
 import authReducer from "./auth-reducer.ts";
+// @ts-ignore
 import usersReducer from "./users-reducer.ts";
+// @ts-ignore
 import chatReducer from "./chat-reducer.ts";
 
 
@@ -13,10 +18,8 @@ let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
-    authReducer: authReducer,
-    // authPage: authReducer,
+    authPage: authReducer,
     chatPage: chatReducer,
-
 })
 
 

@@ -2,13 +2,14 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik'; 
 import styles from './Login.module.css';
 import { getLogined } from '../../redux/auth-reducer.ts';
+import { getIsAuth } from '../../redux/auth-selectors.ts';
 import {  useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 
 export const Login = React.memo(( ) => {
 
-    const isAuth = useSelector(state => state.authReducer.isAuth);
+    const isAuth = useSelector(getIsAuth)
 
     const dispatch = useDispatch();
 

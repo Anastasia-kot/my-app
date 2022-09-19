@@ -2,11 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // @ts-ignore
 import styles from './ProfileInfo.module.css';
-import { Preloader } from '../../Services/Preloader';
+// @ts-ignore
+import { Preloader } from '../../Services/Preloader.tsx';
 import { ProfileStatusWithHooks } from './ProfileStatus/ProfileStatusWithHooks';
 // @ts-ignore
-import { updateProfilePhoto } from '../../../redux/profile-reducer.ts';
-import { getUserInfo } from '../../../redux/profile-selectors';
+import { updateProfilePhoto, UserInfoType } from '../../../redux/profile-reducer.ts';
+// @ts-ignore
+import { getUserInfo } from '../../../redux/profile-selectors.ts';
 import { UserOutlined } from '@ant-design/icons';
 
 
@@ -15,7 +17,7 @@ export const ProfileInfo = ({isOwner}) => {
     
 //state
 
-    const userInfo = useSelector(getUserInfo);
+    const userInfo: UserInfoType = useSelector(getUserInfo);
     
     const [isChangingPhoto, setIsChangingPhoto] = React.useState(false);    
     const [isLoadingPhoto, setIsLoadingPhoto] = React.useState(false);    

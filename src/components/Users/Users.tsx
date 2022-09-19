@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { Pagination } from 'antd';
-import { Preloader } from '../Services/Preloader';
+import { Preloader } from '../Services/Preloader.tsx';
 
 import { getUsersTC, User, actions, followUser, unFollowUser, setNewCurrentPage } from '../../redux/users-reducer.ts';
 import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.ts';
@@ -82,7 +82,7 @@ export const Users: React.FC = ( ) => {
                         
                         <div className={styles.userInfoContainer}>
                             <div>
-                                {u.name}
+                                {u.name} {u.id}
                             </div>
                             
                             <div>

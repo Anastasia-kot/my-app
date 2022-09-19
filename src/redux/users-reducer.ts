@@ -1,6 +1,7 @@
 import { InferActionsTypes } from './redux-store';
 import { Dispatch } from 'react';
-import { usersAPI    } from "../API/api.ts";
+// @ts-ignore
+import { usersAPI } from "../API/api.ts";
 import { mappingFunction } from "../utils/mapHelper";
 
  
@@ -76,20 +77,16 @@ type ActionsTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
     follow: (userId: number) => ({ type: 'USERS-REDUCER/FOLLOW', userId } as const),
-
     unFollow: (userId: number) => ({ type: 'USERS-REDUCER/UNFOLLOW', userId } as const),
+    setFollowingInProgress: (userId: number, toggleFollowing: boolean) =>
+        ({ type: 'USERS-REDUCER/FOLLOWING_IN_PROGRESS', userId, toggleFollowing, } as const), 
 
+    setIsFetchingStatus: (isFetchingStatus: boolean) => ({ type: 'USERS-REDUCER/SET_IS_FETCHING_STATUS', isFetchingStatus } as const),
     setUsers: (users: Array<User>) => ({ type: 'USERS-REDUCER/SET_USERS', users } as const),
 
     setCurrentPage: (newCurrentPage: number) => ({ type: 'USERS-REDUCER/SET_CURRENT_PAGE', newCurrentPage } as const),
-
     setTotalUsersCount: (totalCount: number) => ({ type: 'USERS-REDUCER/SET_TOTAL_USERS_COUNT', totalCount } as const),
-    setUsersOnPageCount: (count: number) => ({ type: 'USERS-REDUCER/SET_USERS_ON_PAGE_COUNT', count } as const),
-
-    setIsFetchingStatus: (isFetchingStatus: boolean) => ({ type: 'USERS-REDUCER/SET_IS_FETCHING_STATUS', isFetchingStatus } as const),
-
-    setFollowingInProgress: (userId: number, toggleFollowing: boolean) => 
-        ({ type: 'USERS-REDUCER/FOLLOWING_IN_PROGRESS', userId, toggleFollowing, } as const), 
+    setUsersOnPageCount: (count: number) => ({ type: 'USERS-REDUCER/SET_USERS_ON_PAGE_COUNT', count } as const), 
 }
 
 

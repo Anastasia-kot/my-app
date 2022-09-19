@@ -114,17 +114,18 @@ export const authAPI = {
 }
 
 export const dialogsAPI = {
+    startDialogWithAPI: async (id: number) => {
+        const response = await instance
+            .put<ResponseType>(`dialogs/${id}`);
+        return response.data;
+    },
+
     getDialogsWithAPI: async () => {
         const response = await instance
             .get<ResponseType>(`dialogs`);
         return response.data;
     },
 
-    startDialogWithAPI: async (id: number) => {
-        const response = await instance
-            .put<ResponseType>(`dialogs/${id}`);
-        return response.data;
-    },
     getMessagesListWithAPI: async (id: number, page: number = 1, count: number = 10) => {
         const response = await instance
             .get<ResponseType>(`dialogs/${id}/messages?page=${page}&count=${count}`);
@@ -132,7 +133,7 @@ export const dialogsAPI = {
     },
     sendMessageWithAPI: async (id: number, message: string) => {
         const response = await instance
-            .post<ResponseType>(`dialogs/${id}/messages`, { message: message });
+            .post<ResponseType>(`dialogs/${id}/messages`, { body: message });
         return response.data;
     },
 

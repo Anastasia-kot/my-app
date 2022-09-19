@@ -12,8 +12,6 @@ export const DialogItem = ({dialog}) => {
                         ? <img alt='avatar' src={dialog.photos.small} className={styles.avatar} />
                         : <UserOutlined className={styles.avatar} />
                     }
-               
-
                 {dialog.userName}
                 {dialog.hasNewMessages && <sup>📩</sup>}
              </NavLink>

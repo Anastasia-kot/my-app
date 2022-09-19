@@ -1,4 +1,5 @@
 import { Dispatch } from "react";
+// @ts-ignore
 import { authAPI } from "../API/api.ts";
 import { InferActionsTypes } from "./redux-store";
 
