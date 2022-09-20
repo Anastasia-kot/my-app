@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/my-app/static/css/main.38eac3e4.css",
-    "main.js": "/my-app/static/js/main.4706eaaf.js",
+    "main.js": "/my-app/static/js/main.5742df14.js",
     "static/css/835.e5d59ac6.chunk.css": "/my-app/static/css/835.e5d59ac6.chunk.css",
     "static/js/835.78d6a3ab.chunk.js": "/my-app/static/js/835.78d6a3ab.chunk.js",
     "static/js/787.edd59a96.chunk.js": "/my-app/static/js/787.edd59a96.chunk.js",
     "static/media/mao_logo.svg": "/my-app/static/media/mao_logo.c43383e07d165ab3809a88c789961fa9.svg",
     "index.html": "/my-app/index.html",
     "main.38eac3e4.css.map": "/my-app/static/css/main.38eac3e4.css.map",
-    "main.4706eaaf.js.map": "/my-app/static/js/main.4706eaaf.js.map",
+    "main.5742df14.js.map": "/my-app/static/js/main.5742df14.js.map",
     "835.e5d59ac6.chunk.css.map": "/my-app/static/css/835.e5d59ac6.chunk.css.map",
     "835.78d6a3ab.chunk.js.map": "/my-app/static/js/835.78d6a3ab.chunk.js.map",
     "787.edd59a96.chunk.js.map": "/my-app/static/js/787.edd59a96.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.38eac3e4.css",
-    "static/js/main.4706eaaf.js"
+    "static/js/main.5742df14.js"
   ]
 }
