@@ -1,15 +1,17 @@
 import React from 'react';
-import { UserOutlined } from '@ant-design/icons';
+// @ts-ignore
 import styles from './Users.module.css';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
 import { Pagination } from 'antd';
-import { Preloader } from '../Services/Preloader.tsx';
-
+// @ts-ignore
+import { Preloader } from '../common/Preloader/Preloader.tsx';
+// @ts-ignore
 import { getUsersTC, User, actions, followUser, unFollowUser, setNewCurrentPage } from '../../redux/users-reducer.ts';
+// @ts-ignore
 import { getCount, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from '../../redux/users-selectors.ts';
+// @ts-ignore
+import { Avatar } from '../common/Avatar/Avatar.tsx';
     
 
 
@@ -33,9 +35,9 @@ export const Users: React.FC = ( ) => {
 
     //paginator logic
     const setNewCurrentPageOnClick = 
-        (newCurrentPage) => dispatch(setNewCurrentPage(newCurrentPage, count))
+        (newCurrentPage: number) => dispatch(setNewCurrentPage(newCurrentPage, count))
      ; 
-    const onShowSizeChange = (current, pageSize) => {
+    const onShowSizeChange = (current: number, pageSize: number) => {
             dispatch(actions.setUsersOnPageCount(pageSize))
             dispatch(setNewCurrentPage(1, pageSize))
     }; 
@@ -44,11 +46,11 @@ export const Users: React.FC = ( ) => {
 
 // follow - unfollow 
     const unFollowUserOnClick = React.useCallback (
-        (id) => dispatch(unFollowUser(id)),
+        (id:number) => dispatch(unFollowUser(id)),
         [dispatch]
     ); 
     const followUserOnClick = React.useCallback (
-        (id) => dispatch(followUser(id)),
+        (id: number) => dispatch(followUser(id)),
         [dispatch]
     ); 
 
@@ -72,12 +74,7 @@ export const Users: React.FC = ( ) => {
                     <div className={styles.userCard}>
                         
                         <NavLink to={'/profile/' + u.id}>
-                            <div className={styles.avatar}> 
-                            {u.photos.small
-                                ? <img   alt='avatar' src={u.photos.small} /> 
-                                : <UserOutlined   style={{ fontSize: '100px',}} />
-                            }
-                            </div>
+                            <Avatar width={100} photos={u.photos}/>
                         </NavLink>
                         
                         <div className={styles.userInfoContainer}>

@@ -1,38 +1,10 @@
 import { InferActionsTypes } from './redux-store';
 import { Dispatch } from "react";
+// @ts-ignore
+
 import { profileAPI,  ResponseStatusEnum } from "../API/api.ts";
   
 
-type InitialStateType = typeof initialState;
-
-export type Post = { 
-    id: number, 
-    message: string, 
-    likeCounter: number 
-}
-export type UserInfoType = {
-        aboutMe:  string | null,
-        contacts: {
-            facebook:  string | null,
-            website:  string | null,
-            vk:  string | null,
-            twitter: string | null,
-            instagram:  string | null,
-            youtube: string | null,
-            github:  string | null,
-            mainLink:  string | null,
-        },
-        lookingForAJob:  boolean,
-        lookingForAJobDescription:  string | null,
-        fullName:  string | null,
-        userId:  number | null,
-            photos:  Photos
-}
-
-type Photos = {
-    small: string | null,
-    large: string | null,
-}
 
 let initialState =  {
     posts: [
@@ -40,7 +12,7 @@ let initialState =  {
         { id: 2, message: 'How are you?', likeCounter: 23 },
         { id: 3, message: 'It kamasutra', likeCounter: 11 },
         { id: 4, message: 'Yo', likeCounter: 12 }
-    ] as Array<Post>,
+    ] as Array<PostType>,
     
     newPostText: '',
     
@@ -63,7 +35,7 @@ let initialState =  {
             photos: {
                 small: null,
                 large: null,
-            } as Photos
+            } as PhotosType
     } as UserInfoType,
        
     status: null as string | null, 
@@ -122,7 +94,7 @@ export const actions = {
     updateNewText: (text: string) => ({ type: 'PROFILE-REDUCER/UPDATE_NEW_TEXT', text } as const),
     setUser: (userData: UserInfoType) => ({ type: 'PROFILE-REDUCER/SET_USER', userData } as const),
     setStatus: (status: string) => ({ type: 'PROFILE-REDUCER/SET_STATUS', status } as const),
-    setPhoto: (photos: Photos) => ({ type: 'PROFILE-REDUCER/SET_PHOTO', photos } as const),
+    setPhoto: (photos: PhotosType) => ({ type: 'PROFILE-REDUCER/SET_PHOTO', photos } as const),
 }
 
 
@@ -186,3 +158,43 @@ export const updateStatus = (status: string) => {
 
 
 export default profileReducer;
+
+
+
+
+
+
+
+
+
+
+type InitialStateType = typeof initialState;
+
+export type PostType = {
+    id: number,
+    message: string,
+    likeCounter: number
+}
+export type UserInfoType = {
+    aboutMe: string | null,
+    contacts: {
+        facebook: string | null,
+        website: string | null,
+        vk: string | null,
+        twitter: string | null,
+        instagram: string | null,
+        youtube: string | null,
+        github: string | null,
+        mainLink: string | null,
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string | null,
+    fullName: string | null,
+    userId: number | null,
+    photos: PhotosType
+}
+
+export type PhotosType = {
+    small: string | null,
+    large: string | null,
+}

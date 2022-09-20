@@ -5,11 +5,7 @@
   gap:10px
 }
 
-.avatar {
-  height: 100px;
-  width: 100px;
-}
-
+ 
 .text, .contacts_header {
   color:black;
   text-decoration: underline;

@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 // @ts-ignore
 import styles from './ProfileInfo.module.css';
 // @ts-ignore
-import { Preloader } from '../../Services/Preloader.tsx';
+import { Preloader } from '../../common/Preloader/Preloader.tsx';
 import { ProfileStatusWithHooks } from './ProfileStatus/ProfileStatusWithHooks';
 // @ts-ignore
 import { updateProfilePhoto, UserInfoType } from '../../../redux/profile-reducer.ts';
 // @ts-ignore
 import { getUserInfo } from '../../../redux/profile-selectors.ts';
-import { UserOutlined } from '@ant-design/icons';
+// @ts-ignore
+import { Avatar } from '../../common/Avatar/Avatar.tsx';
 
 
 
@@ -55,10 +56,7 @@ export const ProfileInfo = ({isOwner}) => {
 
     <div className={styles.photoBlock}>
         <div onClick={() => setIsChangingPhoto(true)} >
-            {userInfo.photos.large
-                ? <img alt='avatar' src={userInfo.photos.large} className={styles.avatar} />
-                : <UserOutlined style={{ fontSize: '100px' }} />
-            }
+            <Avatar width={100} photos={userInfo.photos}/>  
         </div>
 
         {isOwner && isChangingPhoto &&

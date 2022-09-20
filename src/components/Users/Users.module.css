@@ -1,17 +1,7 @@
-.avatar {
- height: 100px;
- width: 100px;
- display: block;
- box-sizing: border-box;
- }
-.avatar span {
- margin: auto
-}
 
 .userCard {
  margin: 5px;
  display: flex;
-  
 }
 
 .userCardContainer {

@@ -13,7 +13,7 @@ import { MyHeader }  from './components/Header/Header';
 import { Navbar } from './components/Navbar/Navbar';
 import { Login } from './components/LoginPage/Login';
 // @ts-ignore
-import { Preloader } from './components/Services/Preloader.tsx';
+import { Preloader } from './components/common/Preloader/Preloader.tsx';
 // @ts-ignore
 
 import { Profile }  from './components/Profile/Profile.tsx';

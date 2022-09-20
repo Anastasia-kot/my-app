@@ -100,7 +100,7 @@ export type StatusSocketType = 'pending' | 'ready' | 'error';
 
 export type ChatMessageType = {
     message: string
-    photo: string | URL
+    photo: string | null // URL string
     userId: number
     userName: string
 }

@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
+// @ts-ignore
 import styles from './ChatPage.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 // @ts-ignore
 import { sendMessage, startMessageListening, stopMessageListening } from '../../redux/chat-reducer.ts';
+// @ts-ignore
+import { RootState  } from '../../redux/redux-store.ts';
+// @ts-ignore
+import { Avatar } from '../common/Avatar/Avatar.tsx';
 
 
 export const ChatPage:React.FC<{}> = () => {
  
     const dispatch = useDispatch();
-    const status = useSelector(state => state.chatPage.status);
-    const messages = useSelector(state => state.chatPage.messages);
+    const status = useSelector((state: RootState) => state.chatPage.status);
+    const messages = useSelector((state: RootState) => state.chatPage.messages);
 
 
     useEffect(() => {  
@@ -20,7 +25,6 @@ export const ChatPage:React.FC<{}> = () => {
         }
     }, [dispatch])
 
-    //    const [messages, setMessages] = useState<Array<any>>([])
        const [newMessage, setNewMessage] = useState<string>('')
 
     const sendMessageHandler = () => {
@@ -38,9 +42,8 @@ export const ChatPage:React.FC<{}> = () => {
             <div> messages: {messages.map(m => 
                 <div key={messages.indexOf(m)} style={{ 'marginBottom': '10px' }}>
                     <NavLink to={'/profile/' + m.userId} className={styles.user}>
-
-                    <img src={m.photo} alt='avatar' style={{ width: '30px', 'borderRadius': '5px', 'marginRight': '10px' }}/>
-                    <b> {m.userName}</b> <sup>id: {m.userId}</sup>
+                        <Avatar width={30} photo={m.photo}/> 
+                        <b> {m.userName}</b> <sup>id: {m.userId}</sup>
                     </NavLink>
                     {   ': ' + m.message}
                 </div>)}

@@ -1,16 +1,21 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// @ts-ignore
+
 import { getNewPostText, getPosts } from '../../../redux/profile-selectors.ts';
-import { Post } from './Post/Post';
+// @ts-ignore
+import { Post } from './Post/Post.tsx';
 // import styles from './Posts.module.css';
-import { actions } from '../../../redux/profile-reducer.ts';
+
+// @ts-ignore
+import { actions, PostType } from '../../../redux/profile-reducer.ts';
 
 
 export const Posts = ( ) => {
   
 //state
-    const posts = useSelector(getPosts);
-    const newPostText = useSelector(getNewPostText);
+    const posts: Array<PostType> = useSelector(getPosts);
+    const newPostText: string = useSelector(getNewPostText);
  
 
 // logic
