@@ -10,7 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getInitialized } from './redux/auth-reducer.ts';
 
 import { MyHeader }  from './components/Header/Header';
-import { Navbar } from './components/Navbar/Navbar';
+// @ts-ignore
+import { Navbar } from './components/Navbar/Navbar.tsx';
 import { Login } from './components/LoginPage/Login';
 // @ts-ignore
 import { Preloader } from './components/common/Preloader/Preloader.tsx';

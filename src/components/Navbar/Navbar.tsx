@@ -8,7 +8,7 @@ import {  Layout, Menu } from 'antd';
  
 const { Sider } = Layout;
 
-function getItem(label, key, icon,   children, type) {
+function getItem(label, key, icon, children?, type?) {
     return { key, icon, children, label, type };
 }
 
@@ -30,18 +30,18 @@ export const Navbar = () => {
     const navigate = useNavigate();
 
     const onClick  = e => {
-        let adress = '';
+        let address = '';
         switch (e.key) {
-            case 'sub1': adress = '/profile'; break;
-            case 'sub11': adress = '/profile'; break;
-            case 'sub12': adress = '/dialogs'; break;
-            case 'sub13': adress = '/chat'; break;
-            case 'sub2': adress = '/users'; break;
-            case 'sub3': adress = '/news'; break;
-            case 'sub4': adress = '/settings'; break;
+            case 'sub1': address = '/profile'; break;
+            case 'sub11': address = '/profile'; break;
+            case 'sub12': address = '/dialogs'; break;
+            case 'sub13': address = '/chat'; break;
+            case 'sub2': address = '/users'; break;
+            case 'sub3': address = '/news'; break;
+            case 'sub4': address = '/settings'; break;
             default: break;
         }
-        navigate(adress, { replace: true });
+        navigate(address, { replace: true });
       };
 
     return (
