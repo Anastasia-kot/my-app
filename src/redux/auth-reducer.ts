@@ -5,7 +5,8 @@ import { InferActionsTypes } from "./redux-store";
 
  
 export type InitialStateType = typeof initialState;
-type UserData = typeof initialState.data;
+export type AuthUserDataType = typeof initialState.data;
+
 
 let initialState =  {
     data: {
@@ -49,7 +50,7 @@ type ActionsTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
 
-    setAuthUserData: (userData: UserData) => ({ type: 'SET_AUTH_USER_DATA', userData } as const),
+    setAuthUserData: (userData: AuthUserDataType) => ({ type: 'SET_AUTH_USER_DATA', userData } as const),
     setToggleLogIn: (isAuth: boolean) => ({ type: 'TOGGLE_LOG_IN', isAuth } as const),
     setInitialized: (initialized: boolean) => ({ type: 'SET_INITIALIZED', initialized } as const),
 }

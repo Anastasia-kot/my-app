@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getNewPostText, getPosts } from '../../../redux/profile-selectors.ts';
 // @ts-ignore
-import { Post } from './Post/Post.tsx';
+import {Post } from './Post/Post.tsx';
 // import styles from './Posts.module.css';
-
 // @ts-ignore
 import { actions, PostType } from '../../../redux/profile-reducer.ts';
 
@@ -23,14 +22,17 @@ export const Posts = ( ) => {
 
     
 
-    let onPostChange = (e) => {  
+    const onPostChange = (e) => {  
         dispatch(actions.updateNewText(e.target.value))
     };
 
-    let onAddPost = ( ) => {  
+    const onAddPost = ( ) => {  
         dispatch(actions.addPost())
     };
 
+    const onClickLike = (isLiked:boolean, postId: number) => {
+        dispatch(actions.toggleLikePost(isLiked, postId))
+    };
 
     return (<div>
         <h3>my posts</h3>
@@ -42,7 +44,7 @@ export const Posts = ( ) => {
         </div>
        
         {posts.map( (p) => {
-            return <Post message={p.message} likeCounter={p.likeCounter} key={p.id} />
+            return <Post message={p.message} likeCounter={p.likeCounter} key={p.id} onClickLike={onClickLike} id={p.id}/>
         })}
 
     </div>

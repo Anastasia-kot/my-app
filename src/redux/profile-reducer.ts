@@ -56,6 +56,18 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ],
                 newPostText:''
             };
+        case  'PROFILE-REDUCER/TOGGLE_LIKE_POST':  
+            return {
+                ...state,
+                posts: 
+                    state.posts.map((post) => { 
+                        if (post.id == action.postId) {
+                            return { ...post, likeCounter: action.isLiked ? ++post.likeCounter : --post.likeCounter }
+                        } else {
+                            return post
+                        }    
+                    }) 
+            };
 
         case 'PROFILE-REDUCER/UPDATE_NEW_TEXT':
             return { ...state, newPostText: action.text}
@@ -92,6 +104,7 @@ type ActionsTypes = InferActionsTypes<typeof actions>
 export const actions = {
     addPost: () => ({  type: 'PROFILE-REDUCER/ADD_POST' } as const),
     updateNewText: (text: string) => ({ type: 'PROFILE-REDUCER/UPDATE_NEW_TEXT', text } as const),
+    toggleLikePost: (isLiked: boolean, postId: number) => ({ type: 'PROFILE-REDUCER/TOGGLE_LIKE_POST', isLiked, postId } as const),
     setUser: (userData: UserInfoType) => ({ type: 'PROFILE-REDUCER/SET_USER', userData } as const),
     setStatus: (status: string) => ({ type: 'PROFILE-REDUCER/SET_STATUS', status } as const),
     setPhoto: (photos: PhotosType) => ({ type: 'PROFILE-REDUCER/SET_PHOTO', photos } as const),

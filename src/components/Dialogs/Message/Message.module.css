@@ -3,16 +3,30 @@
     border-radius: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width:  550px;
+    /* width:  550px; */
     padding:5px;
+
+    margin-left: 0px;
+    margin-right: 100px;
 }
+.userName{
+    font-weight: 500;
+    color: black
+}
+
+.date {
+    font-size: 10px;
+    opacity: 0.5;
+    background-color: rgb(111, 108, 104, 0.15 );
+    border-radius: 5px;
+    padding: 3px
+}
+
 .myMessage { 
-    margin-right: auto;
-    background-color: rgb(97, 70, 29);
-
+    margin-left:  100px;
+    margin-right: 0;
 }
-.hisMessage{
-    margin-left: 200px;
-    padding-left: 200px;
 
+.notViewed { 
+    background-color: rgb(238, 238, 238);
 }

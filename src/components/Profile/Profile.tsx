@@ -34,9 +34,11 @@ export const Profile = React.memo(() => {
     const refresh = () => {
         setIsOwner (false);
         console.log('URLuserId=',URLuserId)
+        
         if (URLuserId) { 
             dispatch(getUserData(URLuserId))
-            dispatch(getStatus(URLuserId)) 
+            dispatch(getStatus(URLuserId))
+            if (+URLuserId === id) { setIsOwner(true) }
                 } else {
             dispatch(getUserData(id));
             dispatch(getStatus(id));
@@ -58,7 +60,7 @@ export const Profile = React.memo(() => {
         <div className={styles.profile}>
             <ProfileInfo isOwner={isOwner} /> 
             <br /> <br /> 
-            <Posts/>
+            {isOwner && <Posts />}
         </div>
     );
 })

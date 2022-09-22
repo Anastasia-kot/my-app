@@ -1,40 +1,6 @@
 @import '~antd/dist/antd.css';
 
-.page-wrapper{
-  display: grid;
-   grid-template-columns: 2fr 10fr;
-   grid-template-rows: 100px 1fr;
-   grid-template-areas: 
-            "h h"
-            "n p";
-  width: 1000px;
-  margin: 0 auto;
-}
 
-
-
-
-.mainContent{
-  grid-area:p;
-  background-color: lightgrey;
-  border: 10px dotted black;
-}
- 
-
-
-
- #components-layout-demo-top-side-2 .logo {
-   float: left;
-   width: 120px;
-   height: 31px;
-   margin: 16px 24px 16px 0;
-   background: rgba(255, 255, 255, 0.3);
- }
-
- .ant-row-rtl #components-layout-demo-top-side-2 .logo {
-   float: right;
-   margin: 16px 0 16px 24px;
- }
 
  .site-layout-background {
    background: #fff;
