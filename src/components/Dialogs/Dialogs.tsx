@@ -15,7 +15,7 @@ import { getDialogsState, getMessagesState, getNewMessageText } from '../../redu
 // @ts-ignore
 import { getDialogs, getMessages, sendMessage, startDialog, DialogType, MessageType } from '../../redux/dialogs-reducer.ts';
    
-const Dialogs = React.memo(() => {
+export const Dialogs = React.memo(() => {
      
     const isAuth = useSelector(getIsAuth)
     const myAuthData = useSelector(getAuthData)
@@ -83,4 +83,4 @@ const Dialogs = React.memo(() => {
 })
 
 
-export default Dialogs;
+ 

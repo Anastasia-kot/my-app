@@ -32,7 +32,7 @@ export enum ResponseStatusEnum {
 export const usersAPI = {
     getUsersWithAPI: async (count: number, currentPage: number) => {
     const response = await instance
-            .get<ResponseType>(`users?count=${count}&page=${currentPage}`);
+            .get(`users?count=${count}&page=${currentPage}`);
         return response.data;
 },
     followUserWithAPI: async (userId: number) => {

@@ -25,11 +25,14 @@ import { Users } from './components/Users/Users.tsx';
 
 import { ChatPage } from './components/ChatPage/ChatPage.tsx';
 // @ts-ignore
+import { Dialogs } from './components/Dialogs/Dialogs.tsx';
+// @ts-ignore
 
 import { getInitializedState } from './redux/auth-selectors.ts';
 // @ts-ignore
+import { Provider } from 'react-redux';
+import { store } from './redux/redux-store'
 
-const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs.tsx'));
  
 const {  Content } = Layout;
  
@@ -46,9 +49,11 @@ export const App = React.memo((props) => {
       }, [dispatch])
 
 
-  if (!initialized) { return <Preloader></Preloader> }  
+  if (!initialized) { return <Provider store={store}><Preloader /> </Provider> }  
 
-  return   (<div>
+  return   (
+    <Provider store={store}>
+<div>
     <Layout>
         <MyHeader />
 
@@ -83,5 +88,6 @@ export const App = React.memo((props) => {
          </Layout>
       </Layout>
 
-  </div>)
+  </div>
+       </Provider>)
 })

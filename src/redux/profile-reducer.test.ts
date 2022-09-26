@@ -1,6 +1,5 @@
-import profileReducer from "./profile-reducer.ts";
-import addPost from "./profile-reducer";
-
+import profileReducer,  {actions } from "./profile-reducer";
+ 
 
 // let mystate = {
 //     posts: [
@@ -38,9 +37,9 @@ import addPost from "./profile-reducer";
 //     status: null ,
 // };
 
-
+ 
 it('new post should be added', ()=>{
-    let action = addPost();
+    let action = actions.addPost();
     let state = {
         posts: [
             { id: 1, message: 'Hello, world! it is my 1st post', likeCounter: 15 },
@@ -49,7 +48,7 @@ it('new post should be added', ()=>{
             { id: 4, message: 'Yo', likeCounter: 12 }
         ],
 
-        newPostText: 'it-camasutra.com',
+        newPostText: 'it-kamasutra.com',
 
         userInfo: {
 
@@ -79,7 +78,7 @@ it('new post should be added', ()=>{
 
 let newState = profileReducer(state, action);
 
-expect(newState.posts.length).toBe(4);
+expect(newState.posts.length).toBe(5);
 
 
 

@@ -96,10 +96,10 @@ export const getUsersTC = (count: number, currentPage: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         dispatch(actions.setIsFetchingStatus(true));
         let response = await usersAPI.getUsersWithAPI(count, currentPage)
-        if (response?.items) {
-            dispatch(actions.setUsers(response.items));
-            dispatch(actions.setTotalUsersCount(response.totalCount));
-        }
+        // if (response?.items) {
+            dispatch(actions.setUsers(response?.items));
+            dispatch(actions.setTotalUsersCount(response?.totalCount));
+        // }
         dispatch(actions.setIsFetchingStatus(false));
     };
 };
@@ -109,28 +109,27 @@ export const setNewCurrentPage = (newCurrentPage: number, count: number ) => {
         dispatch(actions.setCurrentPage(newCurrentPage));
         dispatch(actions.setIsFetchingStatus(true));
         let response = await usersAPI.getUsersWithAPI(count, newCurrentPage);
-        dispatch(actions.setUsers(response.items));
+        dispatch(actions.setUsers(response?.items));
         dispatch(actions.setIsFetchingStatus(false));
     }
 };
 
 
-const _toggleFollowUnfollow = (dispatch: Dispatch<ActionsTypes>, userId: number, apiMethod, callbackAC) => {
+const _toggleFollowUnfollow = async (dispatch: Dispatch<ActionsTypes>, userId: number, apiMethod, callbackAC) => {
     dispatch(actions.setFollowingInProgress(userId, true));
-    apiMethod(userId)
-        .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(callbackAC(userId))
-            }
-            dispatch(actions.setFollowingInProgress(userId, false));
-        })
+    let response = await apiMethod(userId);
+    // if (response.resultCode === 0) {
+        dispatch(callbackAC(userId))
+    // }
+    dispatch(actions.setFollowingInProgress(userId, false));
+        
 }
 
 export const unFollowUser = (userId: number) => (dispatch: Dispatch<ActionsTypes>) => {
-    _toggleFollowUnfollow(dispatch, userId, usersAPI.unfollowUserWithAPI, actions.unFollow)
+    return  _toggleFollowUnfollow(dispatch, userId, usersAPI.unfollowUserWithAPI, actions.unFollow)
 }
 export const followUser = (userId: number) => (dispatch: Dispatch<ActionsTypes>) => {
-    _toggleFollowUnfollow(dispatch, userId, usersAPI.followUserWithAPI, actions.follow)
+    return _toggleFollowUnfollow(dispatch, userId, usersAPI.followUserWithAPI, actions.follow)
 }
 
 
@@ -148,7 +147,7 @@ export default usersReducer;
 
 
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 export type User = {
     name: string | null,
     id: number,
