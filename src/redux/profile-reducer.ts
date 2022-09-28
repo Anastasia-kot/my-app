@@ -47,21 +47,25 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
      switch (action.type) {
 
         case  'PROFILE-REDUCER/ADD_POST':  
-            let postMessage = state.newPostText;
-            return {
-                ...state,
-                posts: [
-                    ...state.posts, 
-                    { id: (state.posts.length + 1), message: postMessage, likeCounter: 0} 
-                ],
-                newPostText:''
-            };
+             if (state.newPostText.length>0) {
+                 return ({
+                     ...state,
+                     posts: [
+                         ...state.posts,
+                         { id: (state.posts.length + 1), message: state.newPostText, likeCounter: 0 }
+                     ],
+                     newPostText: ''
+                 }); 
+             } else {
+                 return state;
+             }
+                
         case  'PROFILE-REDUCER/TOGGLE_LIKE_POST':  
             return {
                 ...state,
                 posts: 
                     state.posts.map((post) => { 
-                        if (post.id == action.postId) {
+                        if (post.id === action.postId) {
                             return { ...post, likeCounter: action.isLiked ? ++post.likeCounter : --post.likeCounter }
                         } else {
                             return post
@@ -106,7 +110,7 @@ export const actions = {
     updateNewText: (text: string) => ({ type: 'PROFILE-REDUCER/UPDATE_NEW_TEXT', text } as const),
     toggleLikePost: (isLiked: boolean, postId: number) => ({ type: 'PROFILE-REDUCER/TOGGLE_LIKE_POST', isLiked, postId } as const),
     setUser: (userData: UserInfoType) => ({ type: 'PROFILE-REDUCER/SET_USER', userData } as const),
-    setStatus: (status: string) => ({ type: 'PROFILE-REDUCER/SET_STATUS', status } as const),
+    setStatus: (status: string | null) => ({ type: 'PROFILE-REDUCER/SET_STATUS', status } as const),
     setPhoto: (photos: PhotosType) => ({ type: 'PROFILE-REDUCER/SET_PHOTO', photos } as const),
 }
 
@@ -181,7 +185,7 @@ export default profileReducer;
 
 
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 
 export type PostType = {
     id: number,

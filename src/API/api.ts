@@ -18,7 +18,6 @@ type ResponseType = {
     statusText: string
 }
 
-
 export enum ResultCodeEnum {
     success = 0,
     error = 1,
@@ -27,7 +26,6 @@ export enum ResponseStatusEnum {
     success = 200,
     error = 400,
 }
-
 
 export const usersAPI = {
     getUsersWithAPI: async (count: number, currentPage: number) => {
