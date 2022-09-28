@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/my-app/static/css/main.b2e19eef.css",
-    "main.js": "/my-app/static/js/main.8570ccc3.js",
+    "main.js": "/my-app/static/js/main.6f3a480e.js",
     "static/js/787.edd59a96.chunk.js": "/my-app/static/js/787.edd59a96.chunk.js",
     "static/media/mao_logo.svg": "/my-app/static/media/mao_logo.c43383e07d165ab3809a88c789961fa9.svg",
     "index.html": "/my-app/index.html",
     "main.b2e19eef.css.map": "/my-app/static/css/main.b2e19eef.css.map",
-    "main.8570ccc3.js.map": "/my-app/static/js/main.8570ccc3.js.map",
+    "main.6f3a480e.js.map": "/my-app/static/js/main.6f3a480e.js.map",
     "787.edd59a96.chunk.js.map": "/my-app/static/js/787.edd59a96.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b2e19eef.css",
-    "static/js/main.8570ccc3.js"
+    "static/js/main.6f3a480e.js"
   ]
 }
