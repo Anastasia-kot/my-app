@@ -34,6 +34,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
             };
 
         case 'USERS-REDUCER/SET_USERS':
+            debugger
             return {
                 ...state,
                 users: [...action.users]
@@ -49,6 +50,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
                 ...state, totalCount: action.totalCount
             };
         case 'USERS-REDUCER/SET_USERS_ON_PAGE_COUNT':
+            
             return {
                 ...state, count: action.count
             };
@@ -82,7 +84,11 @@ export const actions = {
         ({ type: 'USERS-REDUCER/FOLLOWING_IN_PROGRESS', userId, toggleFollowing, } as const), 
 
     setIsFetchingStatus: (isFetchingStatus: boolean) => ({ type: 'USERS-REDUCER/SET_IS_FETCHING_STATUS', isFetchingStatus } as const),
-    setUsers: (users: Array<User>) => ({ type: 'USERS-REDUCER/SET_USERS', users } as const),
+    setUsers: (users: Array<User>) => {
+        debugger
+        return ({ type: 'USERS-REDUCER/SET_USERS', users } as const)
+    }
+   ,
 
     setCurrentPage: (newCurrentPage: number) => ({ type: 'USERS-REDUCER/SET_CURRENT_PAGE', newCurrentPage } as const),
     setTotalUsersCount: (totalCount: number) => ({ type: 'USERS-REDUCER/SET_TOTAL_USERS_COUNT', totalCount } as const),
@@ -97,7 +103,7 @@ export const getUsersTC = (count: number, currentPage: number) => {
         dispatch(actions.setIsFetchingStatus(true));
         let response = await usersAPI.getUsersWithAPI(count, currentPage)
         // if (response?.items) {
-            dispatch(actions.setUsers(response?.items));
+            dispatch(actions.setUsers(response?.items as Array<User>));
             dispatch(actions.setTotalUsersCount(response?.totalCount));
         // }
         dispatch(actions.setIsFetchingStatus(false));
@@ -109,7 +115,7 @@ export const setNewCurrentPage = (newCurrentPage: number, count: number ) => {
         dispatch(actions.setCurrentPage(newCurrentPage));
         dispatch(actions.setIsFetchingStatus(true));
         let response = await usersAPI.getUsersWithAPI(count, newCurrentPage);
-        dispatch(actions.setUsers(response?.items));
+        dispatch(actions.setUsers(response?.items as Array<User>));
         dispatch(actions.setIsFetchingStatus(false));
     }
 };

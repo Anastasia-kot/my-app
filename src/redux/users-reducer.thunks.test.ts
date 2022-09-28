@@ -1,22 +1,35 @@
 import { actions, followUser, getUsersTC, setNewCurrentPage, unFollowUser, User } from './users-reducer';
 
-import { ResultCodeEnum, usersAPI } from './../API/api';
+import { usersAPI } from './../API/api';
 
 jest.mock('./../API/api')
 const usersAPIMock = usersAPI as jest.Mocked<typeof usersAPI>
 
-const response = {
-    fieldsErrors: [] as Array<any>,
-    messages: [] as Array<any>,
-    resultCode: ResultCodeEnum,
-    items: [] as Array<User>,
-    data: {} as any,
-    totalCount: 112
+enum ResultCodeEnum {
+    success = 0,
+    error = 1,
 }
 
-usersAPIMock.followUserWithAPI.mockReturnValue(Promise.resolve(response))
-usersAPIMock.unfollowUserWithAPI.mockReturnValue(Promise.resolve(response))
-usersAPIMock.getUsersWithAPI.mockReturnValue(Promise.resolve(response))
+const responseToggleFollowUnfollow = {
+    fieldsErrors: [] as Array<any>,
+    messages: [] as Array<any>,
+    resultCode: ResultCodeEnum.success,
+    data: {} as any,
+}
+
+const responseGetUsers= {
+    fieldsErrors: [] as Array<any>,
+    messages: [] as Array<any>,
+    resultCode: ResultCodeEnum.success,
+    items: [] as Array<User>,
+    totalCount: 0 as number
+}
+
+
+
+usersAPIMock.followUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow))
+usersAPIMock.unfollowUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow))
+usersAPIMock.getUsersWithAPI.mockReturnValue(Promise.resolve(responseGetUsers))
 
 const dispatchMock = jest.fn()
 const getStateMock = jest.fn()
@@ -52,22 +65,24 @@ test('unfollow thunk success', async () => {
 test('get UsersTC thunk success', async () => {
     const thunk = getUsersTC(10, 1);   // count, currentPage
     await thunk(dispatchMock);
-    expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setIsFetchingStatus(true));
-    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setUsers([] as Array<User>));
-    expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setTotalUsersCount(112));
-    expect(dispatchMock).toHaveBeenNthCalledWith(4, actions.setIsFetchingStatus(false));
     expect(dispatchMock).toBeCalledTimes(4);
+
+    expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setIsFetchingStatus(true));
+    // expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setUsers(responseGetUsers.items));
+    // expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setTotalUsersCount(responseGetUsers.totalCount));
+    expect(dispatchMock).toHaveBeenNthCalledWith(4, actions.setIsFetchingStatus(false));
   
 })
 
 test('set New Current Page  thunk success', async () => {
     const thunk = setNewCurrentPage(2, 10);   // newCurrentPage: number, count: number
     await thunk(dispatchMock);
-    expect(dispatchMock).toHaveBeenCalledWith(1, actions.setCurrentPage(2));
-    expect(dispatchMock).toHaveBeenCalledWith(2, actions.setIsFetchingStatus(true));
-    expect(dispatchMock).toHaveBeenCalledWith(3, actions.setUsers([] as Array<User>));
-    expect(dispatchMock).toHaveBeenCalledWith(4, actions.setIsFetchingStatus(false));
     expect(dispatchMock).toBeCalledTimes(4);
+
+    expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setCurrentPage(2));
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setIsFetchingStatus(true));
+    expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setUsers(responseGetUsers.items as Array<User>));
+    expect(dispatchMock).toHaveBeenNthCalledWith(4, actions.setIsFetchingStatus(false));
   
 })
 

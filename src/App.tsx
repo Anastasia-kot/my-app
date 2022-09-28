@@ -30,9 +30,7 @@ import { Dialogs } from './components/Dialogs/Dialogs.tsx';
 
 import { getInitializedState } from './redux/auth-selectors.ts';
 // @ts-ignore
-import { Provider } from 'react-redux';
-import { store } from './redux/redux-store'
-
+  
  
 const {  Content } = Layout;
  
@@ -49,10 +47,10 @@ export const App = React.memo((props) => {
       }, [dispatch])
 
 
-  if (!initialized) { return <Provider store={store}><Preloader /> </Provider> }  
+  if (!initialized) { return  <Preloader /> }  
 
   return   (
-    <Provider store={store}>
+     
 <div>
     <Layout>
         <MyHeader />
@@ -88,6 +86,5 @@ export const App = React.memo((props) => {
          </Layout>
       </Layout>
 
-  </div>
-       </Provider>)
+  </div>)
 })
