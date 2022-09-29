@@ -29,21 +29,16 @@ export const Dialogs = React.memo(() => {
     const dispatch = useDispatch();
     
 
-    useEffect( () => {
-        dispatch(getDialogs())
-        if (URLuserId) {
-            dispatch(getMessages(URLuserId))
-
-        }
-    }, [])
+ 
 
     useEffect( () => {
         if (URLuserId) {
             dispatch(startDialog(URLuserId))
-            dispatch(getDialogs())
             dispatch(getMessages(URLuserId)) 
         }
-    }, [URLuserId])
+        dispatch(getDialogs())
+
+    }, [URLuserId, dispatch])
 
 
 

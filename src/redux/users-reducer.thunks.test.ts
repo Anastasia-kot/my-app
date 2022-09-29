@@ -1,5 +1,6 @@
 import { actions, followUser, getUsersTC, setNewCurrentPage, unFollowUser, User } from './users-reducer';
 import { usersAPI } from './../API/api';
+import { AxiosResponseHeaders } from 'axios';
 jest.mock('./../API/api')
 const usersAPIMock = usersAPI as jest.Mocked<typeof usersAPI>
 
@@ -8,9 +9,14 @@ enum ResultCodeEnum {
     error = 1,
 }
 const responseGetUsers= {
-    fieldsErrors: [] as Array<any>,
-    messages: [] as Array<any>,
-    resultCode: ResultCodeEnum.success as ResultCodeEnum,
+    // fieldsErrors: [] as Array<any>,
+    // messages: [] as Array<any>,
+    // resultCode: ResultCodeEnum.success as ResultCodeEnum,
+    status: 200 as number,
+    statusText: 'OK' as string,
+    headers: {} as AxiosResponseHeaders,
+    config: {} as object,
+    request: {} as object,
     data: {
         items: [
             {
@@ -48,18 +54,28 @@ const responseGetUsers= {
             },
 ] as Array<User>,
         totalCount: 0 as number
-    } 
+    },
+   
 }
 const responseToggleFollowUnfollow = {
-    fieldsErrors: [] as Array<any>,
-    messages: [] as Array<any>,
-    resultCode: ResultCodeEnum.success,
+    // fieldsErrors: [] as Array<any>,
+    // messages: [] as Array<any>,
+    // resultCode: ResultCodeEnum.success,
     data: {} as any,
+    status: 200 as number,
+    statusText: 'OK' as string,
+    headers: {} as AxiosResponseHeaders,
+    config: {} as object,
+    request: {} as object,
 }
 
 usersAPIMock.followUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow))
 usersAPIMock.unfollowUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow))
 usersAPIMock.getUsersWithAPI.mockReturnValue(Promise.resolve(responseGetUsers))
+
+// usersAPIMock.followUserWithAPI.mockImplementation(() => Promise.resolve(responseToggleFollowUnfollow))  
+// usersAPIMock.unfollowUserWithAPI.mockImplementation(() => Promise.resolve(responseToggleFollowUnfollow))
+// usersAPIMock.getUsersWithAPI.mockImplementation(() => Promise.resolve(responseGetUsers))
 
 const dispatchMock = jest.fn()
 const getStateMock = jest.fn()
@@ -98,7 +114,7 @@ test('get UsersTC thunk success', async () => {
     expect(dispatchMock).toBeCalledTimes(4);
 
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setIsFetchingStatus(true));
-    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setUsers(  ));  //  responseGetUsers.items= undefined
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setUsers(   ));  //  responseGetUsers.items= undefined
     expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setTotalUsersCount(  ));  
     expect(dispatchMock).toHaveBeenNthCalledWith(4, actions.setIsFetchingStatus(false));
   

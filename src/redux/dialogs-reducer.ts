@@ -22,7 +22,11 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 newMessageText: ''
             };
           
-       
+        case 'UPDATE_MESSAGE_TEXT':
+            return {
+                ...state,
+                newMessageText: action.text
+            };
 
         case 'SET_DIALOGS':
             return {
@@ -36,12 +40,7 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 messages: action.messages
             };
     
-        case 'UPDATE_MESSAGE_TEXT':
-            return {
-                ...state,
-                newMessageText: action.text
-            };
-        
+
         default:
             return state;
     }
@@ -51,10 +50,12 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
 type ActionsTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
+    addMessage: () => ({ type: 'ADD_MESSAGE' } as const),
+    updateMessageText: (text: string) => ({ type: 'UPDATE_MESSAGE_TEXT', text } as const),
+    
     setDialogs: (dialogs: Array<DialogType>) => ({ type: 'SET_DIALOGS', dialogs } as const),
     setMessages: (messages: Array<MessageType>) => ({ type: 'SET_MESSAGES', messages } as const),
-    addMessage: ()  => ({ type: 'ADD_MESSAGE' } as const),
-    updateMessageText: (text: string) => ({ type: 'UPDATE_MESSAGE_TEXT', text } as const),
+
 }
 
 
@@ -63,7 +64,8 @@ export const actions = {
 
 export const startDialog = (id: number) => async (dispatch: Dispatch<ActionsTypes>) => {
     try {
-        const resp = await dialogsAPI.startDialogWithAPI(id)
+        // const resp = await dialogsAPI.startDialogWithAPI(id)
+        await dialogsAPI.startDialogWithAPI(id)
         getDialogs()
     } catch (err) {
         console.error('please try later')
@@ -113,7 +115,7 @@ export default dialogsReducer;
 
 
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 
 export type DialogType = {
     hasNewMessages: boolean

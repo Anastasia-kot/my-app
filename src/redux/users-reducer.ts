@@ -34,7 +34,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
             };
 
         case 'USERS-REDUCER/SET_USERS':
-            debugger
             return {
                 ...state,
                 users: [...action.users]
@@ -83,12 +82,9 @@ export const actions = {
     setFollowingInProgress: (userId: number, toggleFollowing: boolean) =>
         ({ type: 'USERS-REDUCER/FOLLOWING_IN_PROGRESS', userId, toggleFollowing, } as const), 
 
-    setIsFetchingStatus: (isFetchingStatus: boolean) => ({ type: 'USERS-REDUCER/SET_IS_FETCHING_STATUS', isFetchingStatus } as const),
-    setUsers: (users: Array<User>) => {
-        debugger
-        return ({ type: 'USERS-REDUCER/SET_USERS', users } as const)
-    }
-   ,
+    setIsFetchingStatus: (isFetchingStatus: boolean) => 
+        ({ type: 'USERS-REDUCER/SET_IS_FETCHING_STATUS', isFetchingStatus } as const),
+    setUsers: (users: Array<User>) =>  ({ type: 'USERS-REDUCER/SET_USERS', users } as const),
 
     setCurrentPage: (newCurrentPage: number) => ({ type: 'USERS-REDUCER/SET_CURRENT_PAGE', newCurrentPage } as const),
     setTotalUsersCount: (totalCount: number) => ({ type: 'USERS-REDUCER/SET_TOTAL_USERS_COUNT', totalCount } as const),
@@ -103,8 +99,10 @@ export const getUsersTC = (count: number, currentPage: number) => {
         dispatch(actions.setIsFetchingStatus(true));
         let response = await usersAPI.getUsersWithAPI(count, currentPage)
         // if (response?.items) {
-            dispatch(actions.setUsers(response?.items as Array<User>));
-            dispatch(actions.setTotalUsersCount(response?.totalCount));
+            console.log(response)
+             dispatch(actions.setUsers(response?.data.items as Array<User>));
+         
+            dispatch(actions.setTotalUsersCount(response?.data.totalCount));
         // }
         dispatch(actions.setIsFetchingStatus(false));
     };
@@ -115,7 +113,7 @@ export const setNewCurrentPage = (newCurrentPage: number, count: number ) => {
         dispatch(actions.setCurrentPage(newCurrentPage));
         dispatch(actions.setIsFetchingStatus(true));
         let response = await usersAPI.getUsersWithAPI(count, newCurrentPage);
-        dispatch(actions.setUsers(response?.items as Array<User>));
+        dispatch(actions.setUsers(response?.data.items as Array<User>));
         dispatch(actions.setIsFetchingStatus(false));
     }
 };
@@ -123,7 +121,8 @@ export const setNewCurrentPage = (newCurrentPage: number, count: number ) => {
 
 const _toggleFollowUnfollow = async (dispatch: Dispatch<ActionsTypes>, userId: number, apiMethod, callbackAC) => {
     dispatch(actions.setFollowingInProgress(userId, true));
-    let response = await apiMethod(userId);
+    // let response = await apiMethod(userId);
+    await apiMethod(userId);
     // if (response.resultCode === 0) {
         dispatch(callbackAC(userId))
     // }
