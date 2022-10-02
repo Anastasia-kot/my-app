@@ -69,13 +69,13 @@ const responseToggleFollowUnfollow = {
     request: {} as object,
 }
 
-usersAPIMock.followUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow))
-usersAPIMock.unfollowUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow))
-usersAPIMock.getUsersWithAPI.mockReturnValue(Promise.resolve(responseGetUsers))
+usersAPIMock.followUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow)) //как у Димыча
+usersAPIMock.unfollowUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow))//как у Димыча
+usersAPIMock.getUsersWithAPI.mockReturnValue(Promise.resolve(responseGetUsers.data))//как у Димыча
 
-// usersAPIMock.followUserWithAPI.mockImplementation(() => Promise.resolve(responseToggleFollowUnfollow))  
-// usersAPIMock.unfollowUserWithAPI.mockImplementation(() => Promise.resolve(responseToggleFollowUnfollow))
-// usersAPIMock.getUsersWithAPI.mockImplementation(() => Promise.resolve(responseGetUsers))
+// usersAPIMock.followUserWithAPI.mockImplementation(() => Promise.resolve(responseToggleFollowUnfollow))    //версия из интернета
+// usersAPIMock.unfollowUserWithAPI.mockImplementation(() => Promise.resolve(responseToggleFollowUnfollow))   //версия из интернета
+// usersAPIMock.getUsersWithAPI.mockImplementation(() => Promise.resolve(responseGetUsers))   //версия из интернета
 
 const dispatchMock = jest.fn()
 const getStateMock = jest.fn()
@@ -92,6 +92,8 @@ beforeEach(
 
 test('follow thunk success', async () => {
     const thunk = followUser(0);   //id=0
+    usersAPIMock.followUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow.data)) //как у Димыча
+
     await thunk(dispatchMock);
     expect(dispatchMock).toBeCalledTimes(3);
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setFollowingInProgress(0, true)); //id=0
@@ -101,6 +103,8 @@ test('follow thunk success', async () => {
 
 test('unfollow thunk success', async () => {
     const thunk = unFollowUser(1);   //id=1
+    usersAPIMock.unfollowUserWithAPI.mockReturnValue(Promise.resolve(responseToggleFollowUnfollow))//как у Димыча
+
     await thunk(dispatchMock);
     expect(dispatchMock).toBeCalledTimes(3);
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setFollowingInProgress(1, true )); //id=1
@@ -110,26 +114,29 @@ test('unfollow thunk success', async () => {
 
 test('get UsersTC thunk success', async () => {
     const thunk = getUsersTC(10, 1);   // count, currentPage
+    usersAPIMock.getUsersWithAPI.mockReturnValue(Promise.resolve(responseGetUsers.data))//как у Димыча
+
     await thunk(dispatchMock);
     expect(dispatchMock).toBeCalledTimes(4);
 
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setIsFetchingStatus(true));
-    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setUsers(   ));  //  responseGetUsers.items= undefined
-    expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setTotalUsersCount(  ));  
+    // expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setUsers(responseGetUsers.data.items  ));  //  responseGetUsers = undefined
+    expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setTotalUsersCount(responseGetUsers.data.totalCount));  //  responseGetUsers = undefined
     expect(dispatchMock).toHaveBeenNthCalledWith(4, actions.setIsFetchingStatus(false));
   
 })
 
 test('set New Current Page  thunk success', async () => {
     const thunk = setNewCurrentPage(2, 10);   // newCurrentPage: number, count: number
+    usersAPIMock.getUsersWithAPI.mockReturnValue(Promise.resolve(responseGetUsers.data))//как у Димыча
+
     await thunk(dispatchMock);
-    usersAPIMock.getUsersWithAPI.mockReturnValue(Promise.resolve(responseGetUsers))
 
     expect(dispatchMock).toBeCalledTimes(4);
 
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setCurrentPage(2));
     expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setIsFetchingStatus(true));
-    expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setUsers( )); //responseGetUsers.data.items= undefined
+    expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setUsers(responseGetUsers.data.items )); //responseGetUsers = undefined
     expect(dispatchMock).toHaveBeenNthCalledWith(4, actions.setIsFetchingStatus(false));
   
 })

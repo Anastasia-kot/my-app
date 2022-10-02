@@ -29,9 +29,9 @@ export enum ResponseStatusEnum {
 
 export const usersAPI = {
     getUsersWithAPI: async (count: number, currentPage: number) => {
-        return await instance
+        const response =  await instance
             .get(`users?count=${count}&page=${currentPage}`);
-        // return response.data;
+        return response.data;
 },
     followUserWithAPI: async (userId: number) => {
     const response = await instance
