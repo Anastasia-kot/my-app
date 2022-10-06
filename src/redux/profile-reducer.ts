@@ -117,55 +117,55 @@ export const actions = {
 
 export const getUserData = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        // try {
+        try {
             let response = await profileAPI.getUserDataWithAPI(userId)
-             // if (response.status === ResponseStatusEnum.success) {
+             if (response.status === ResponseStatusEnum.success) {
                 dispatch(actions.setUser(response?.data))
-            // }
-        // } catch(error) {
+            }
+        } catch(error) {
             // alert ('some error. Try again later')             
-        // }
+        }
     }
 }
 
 export const updateProfilePhoto = (file: any) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         
-        // try {
+        try {
             let response = await profileAPI.updateProfilePhotoWithAPI(file)
-            // if (response.status === ResponseStatusEnum.success) {
+            if (response.status === ResponseStatusEnum.success) {
                 dispatch(actions.setPhoto(response?.data.data.photos))
-            // }
-        // } catch(error) {
+            }
+        } catch(error) {
             // alert ('some error. Try again later') 
-        // }
+        }
     }
 }
 
 
 export const getStatus = (userId: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        // try {
+        try {
             let response = await profileAPI.getStatusWithAPI(userId)
-            // if (response.status === ResponseStatusEnum.success) {
+            if (response.status === ResponseStatusEnum.success) {
                 dispatch(actions.setStatus(response?.data))
-        //     }
-        // } catch (error) {
-        //     alert('some error. Try again later')
-        // }    
+            }
+        } catch (error) {
+            // alert('some error. Try again later')
+        }    
     }
 }
 
 export const updateStatus = (status: string) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
-        // try {
+        try {
             let response = await profileAPI.updateStatusWithAPI(status)
-            // if (response.status === ResponseStatusEnum.success) { 
+            if (response.status === ResponseStatusEnum.success) { 
                     dispatch(actions.setStatus(status))
-        //     }
-        // } catch (error) {
-        //     alert('some error. Try again later')
-        // }
+            }
+        } catch (error) {
+            // alert('some error. Try again later')
+        }
     }
 }   
 
