@@ -99,8 +99,7 @@ export const getUsersTC = (count: number, currentPage: number) => {
         dispatch(actions.setIsFetchingStatus(true));
         let response = await usersAPI.getUsersWithAPI(count, currentPage)
         // if (response?.items) {
-            console.log(response)
-             dispatch(actions.setUsers(response?.items as Array<User>));
+              dispatch(actions.setUsers(response?.items as Array<User>));
          
             dispatch(actions.setTotalUsersCount(response?.totalCount));
         // }

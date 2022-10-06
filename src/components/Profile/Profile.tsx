@@ -33,8 +33,7 @@ export const Profile = React.memo(() => {
 
     const refresh = () => {
         setIsOwner (false);
-        console.log('URLuserId=',URLuserId)
-        
+         
         if (URLuserId) { 
             dispatch(getUserData(URLuserId))
             dispatch(getStatus(URLuserId))

@@ -25,7 +25,6 @@ export const ProfileStatusWithHooks = React.memo(() => {
     }
     const deActivateEditMode = () => {
         setEditMode(false)
-        console.log(status)
         dispatch(updateStatus(status))
     }
 

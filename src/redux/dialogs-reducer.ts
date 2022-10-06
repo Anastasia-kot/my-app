@@ -84,8 +84,7 @@ export const getMessages = (id: number, page: number = 1, count: number = 10) =>
     try {
         const messages = await dialogsAPI.getMessagesListWithAPI(id, page, count)
         dispatch(actions.setMessages(messages.items))
-        console.log('messages', messages)
-            // error: null
+             // error: null
             // items: []
             // totalCount : 0
     } catch (err) {
@@ -93,11 +92,10 @@ export const getMessages = (id: number, page: number = 1, count: number = 10) =>
     }
 }
 
-export const sendMessage = (      id: number, message: string       ) => async (dispatch: Dispatch<ActionsTypes>) => {
+export const sendMessage = (id: number, message: string) => async (dispatch: Dispatch<ActionsTypes>) => {
     try {
         const response = await dialogsAPI.sendMessageWithAPI(id, message)
-        console.log('response',response)
-        if (response.resultCode === ResultCodeEnum.success) {
+         if (response.resultCode === ResultCodeEnum.success) {
             dispatch(actions.addMessage())
             getMessages(id)
         }
