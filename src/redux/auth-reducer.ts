@@ -73,7 +73,7 @@ export const getLogined = (email:string, password:string, rememberMe: boolean) =
     return async (dispatch: Dispatch<ActionsTypes>) => {
         let response = await authAPI.loginWithAPI(email, password, rememberMe)
          
-        if (response) {
+        if (response) {  // уточнить условие
 
              
             let response1 = await authAPI.getAuthUserDataWithAPI()

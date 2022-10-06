@@ -1,106 +1,89 @@
+import { AxiosResponseHeaders } from "axios";
 import { Dispatch } from "react";
-// @ts-ignore
-import { authAPI } from "../API/api.ts";
-import { InferActionsTypes } from "./redux-store";
-
+import { authAPI } from "../API/api";
+import { actions, getInitialized, getLogined, getUnLogined } from "./auth-reducer";
  
-export type InitialStateType = typeof initialState;
-export type AuthUserDataType = typeof initialState.data;
-
-
-let initialState =  {
+jest.mock('./../API/api')
+const authAPIMock = authAPI as jest.Mocked<typeof authAPI>
+ 
+enum ResultCodeEnum {
+    success = 0,
+    error = 1,
+}
+const response = {
     data: {
-        email: null as string | null , 
-        id: null as number | null,
-        login: null as string | null, 
-    },
-    isAuth: false as boolean,
-    initialized: false as boolean
-};
+       
+    } as any,
+    status: 200 as number,
+    statusText: 'OK' as string,
+    headers: {} as AxiosResponseHeaders,
+    config: {} as object,
+    request: {} as object,
+
+    resultCode: ResultCodeEnum.success as ResultCodeEnum,
+    fieldsErrors: [] as any,
+    messages: [] as any,  
+}
+
+authAPIMock.getAuthUserDataWithAPI.mockReturnValue(Promise.resolve(response))
+authAPIMock.logOutWithAPI.mockReturnValue(Promise.resolve(response))
+// authAPIMock.loginWithAPI.mockReturnValue(Promise.resolve(response))
+ 
 
 
-const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
-     switch (action.type) {
-      
-        case 'SET_AUTH_USER_DATA': {
-            return { 
-                ...state, 
-                data: {...action.userData} 
-                }
-        }
 
-        case 'TOGGLE_LOG_IN':
-            return {
-                 ...state, 
-                 isAuth: action.isAuth, 
-            }
-        case 'SET_INITIALIZED': {
-            return {
-                ...state,
-                initialized: action.initialized
-            }
-         }
+const dispatchMock = jest.fn()
+const getStateMock = jest.fn()
 
-        default: 
-            return state;
+
+
+beforeEach(
+    () => {
+        dispatchMock.mockClear();
+        getStateMock.mockClear();
+        authAPIMock.getAuthUserDataWithAPI.mockClear();
+        authAPIMock.logOutWithAPI.mockClear();
+        authAPIMock.loginWithAPI.mockClear();          
     }
-}
-type ActionsTypes = InferActionsTypes<typeof actions> 
+)
 
 
-export const actions = {
+test('Initialized success', async () => {
+    const thunk = getInitialized();   
+    authAPIMock.getAuthUserDataWithAPI.mockReturnValue(Promise.resolve(response))
+    await thunk(dispatchMock);
+    expect(dispatchMock).toBeCalledTimes(3);
+    expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setAuthUserData(response.data));   
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setToggleLogIn(true));   
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setInitialized(true));   
 
-    setAuthUserData: (userData: AuthUserDataType) => ({ type: 'SET_AUTH_USER_DATA', userData } as const),
-    setToggleLogIn: (isAuth: boolean) => ({ type: 'TOGGLE_LOG_IN', isAuth } as const),
-    setInitialized: (initialized: boolean) => ({ type: 'SET_INITIALIZED', initialized } as const),
-}
-
-
-export const getInitialized = () => { //перезагрузка страницы
-    return async (dispatch: Dispatch<ActionsTypes>) => {
-        let response = await authAPI.getAuthUserDataWithAPI()
-        dispatch(actions.setAuthUserData(response.data))
-         if (response.resultCode === 0) {
-            dispatch(actions.setToggleLogIn(true)) // уточнить эту строку  
-        }
-        dispatch(actions.setInitialized(true))
-    }
-}
+})
 
 
-
-export const getLogined = (email:string, password:string, rememberMe: boolean) => {
-    return async (dispatch: Dispatch<ActionsTypes>) => {
-        let response = await authAPI.loginWithAPI(email, password, rememberMe)
-         
-        if (response) {
-
-             
-            let response1 = await authAPI.getAuthUserDataWithAPI()
-            dispatch(actions.setAuthUserData(response1.data))
-                 
-            dispatch(actions.setToggleLogIn(true))
-            dispatch(actions.setInitialized(true))
-        }
-    }
-}
-
-
-export const getUnLogined = () => {
-    return async (dispatch:Dispatch<ActionsTypes>) => {
-        let response = await authAPI.logOutWithAPI()
-        
-        if (response.resultCode ===0) {
-        dispatch(actions.setToggleLogIn(false))
-         
-        dispatch(actions.setAuthUserData({
+test('Logined success', async () => {
+    const thunk = getLogined('1', '2', false);   //(email:string, password:string, rememberMe: boolean)
+    authAPIMock.loginWithAPI.mockReturnValue(Promise.resolve(response))
+    authAPIMock.getAuthUserDataWithAPI.mockReturnValue(Promise.resolve(response))
+    await thunk(dispatchMock);
+    expect(dispatchMock).toBeCalledTimes(3);
+    expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setAuthUserData(response.data));   
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setToggleLogIn(true));   
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setInitialized(true));   
+})
+ 
+test('Log out', async () => {
+    const thunk = getUnLogined();   
+    authAPIMock.logOutWithAPI.mockReturnValue(Promise.resolve(response))
+    await thunk(dispatchMock);
+    expect(dispatchMock).toBeCalledTimes(2);
+    expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setToggleLogIn(false));
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setAuthUserData(
+        {
             email: null,
             id: null,
             login: null
-        }))
         }
-    };
-}
-
-
-export default authReducer;
+    ));   
+})
+ 
+ 
