@@ -1,4 +1,5 @@
-import { chatAPI } from '../API/chat-api.ts';
+import { Dispatch } from 'redux';
+import { chatAPI } from '../API/chat-api';
 import { InferActionsTypes } from './redux-store';
  
 
@@ -40,7 +41,7 @@ export const actions = {
 
 
 let _newMessageHandler: ((messages: Array<ChatMessageType>) => void) | null  =  null; 
-const newMessageHandleCreator = (dispatch) => {
+const newMessageHandleCreator = (dispatch: Dispatch<ActionsTypes>) => {
     if ( _newMessageHandler === null ) {
         _newMessageHandler = (messages) => {
             dispatch(actions.messageReceived(messages))
@@ -51,7 +52,7 @@ const newMessageHandleCreator = (dispatch) => {
 
 
 let _statusChangedHandler: ((status: StatusSocketType) => void) | null = null;
-const statusChangedHandleCreator = (dispatch) => {
+const statusChangedHandleCreator = (dispatch: Dispatch<ActionsTypes>) => {
     if (_statusChangedHandler === null) {
         _statusChangedHandler = (status) => {
             dispatch(actions.statusChanged(status))
@@ -66,19 +67,19 @@ const statusChangedHandleCreator = (dispatch) => {
 
 
 
-export const startMessageListening = () => async (dispatch ) => {
+export const startMessageListening = () => async (dispatch: Dispatch<ActionsTypes>) => {
     chatAPI.start();
     chatAPI.subscribe('messages-received', newMessageHandleCreator(dispatch))
     chatAPI.subscribe('status-changed', statusChangedHandleCreator(dispatch))
 }
 
-export const stopMessageListening = () => async (dispatch) => {
+export const stopMessageListening = () => async (dispatch: Dispatch<ActionsTypes>) => {
     chatAPI.unsubscribe('messages-received', newMessageHandleCreator(dispatch))
     chatAPI.unsubscribe('status-changed', statusChangedHandleCreator(dispatch))
     chatAPI.stop();
 }
 
-export const sendMessage = (message: string) => async (dispatch) => {
+export const sendMessage = (message: string) => async (dispatch: Dispatch<ActionsTypes>) => {
     chatAPI.sendMessage(message)
 }
 

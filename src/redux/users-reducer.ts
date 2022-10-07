@@ -1,7 +1,6 @@
 import { InferActionsTypes } from './redux-store';
 import { Dispatch } from 'react';
-// @ts-ignore
-import { usersAPI } from "../API/api.ts";
+import { usersAPI } from "../API/api";
 import { mappingFunction } from "../utils/mapHelper";
 
  
@@ -98,11 +97,10 @@ export const getUsersTC = (count: number, currentPage: number) => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         dispatch(actions.setIsFetchingStatus(true));
         let response = await usersAPI.getUsersWithAPI(count, currentPage)
-        // if (response?.items) {
-              dispatch(actions.setUsers(response?.items as Array<User>));
-         
+        if (response?.items) {
+            dispatch(actions.setUsers(response?.items as Array<User>));
             dispatch(actions.setTotalUsersCount(response?.totalCount));
-        // }
+        }
         dispatch(actions.setIsFetchingStatus(false));
     };
 };
@@ -117,14 +115,13 @@ export const setNewCurrentPage = (newCurrentPage: number, count: number ) => {
     }
 };
 
-
+// @ts-ignore
 const _toggleFollowUnfollow = async (dispatch: Dispatch<ActionsTypes>, userId: number, apiMethod, callbackAC) => {
     dispatch(actions.setFollowingInProgress(userId, true));
-    // let response = await apiMethod(userId);
-    await apiMethod(userId);
-    // if (response.resultCode === 0) {
+    let response = await apiMethod(userId);
+     if (response.resultCode === 0) {
         dispatch(callbackAC(userId))
-    // }
+    }
     dispatch(actions.setFollowingInProgress(userId, false));
         
 }

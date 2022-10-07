@@ -8,7 +8,7 @@ import {  Layout, Menu } from 'antd';
  
 const { Sider } = Layout;
 
-function getItem(label, key, icon, children?, type?) {
+function getItem(label: string, key: Keys, icon: any, children?:Array<any>, type?:any) {
     return { key, icon, children, label, type };
 }
 
@@ -23,13 +23,13 @@ const items = [
     getItem('Settings', 'sub4', <SettingOutlined />,  ),
 ];
 
- 
+type Keys = 'sub1'| 'sub11'| 'sub12'| 'sub13'| 'sub2'| 'sub3'|'sub4'; 
 
 export const Navbar = () => {
 
     const navigate = useNavigate();
 
-    const onClick  = e => {
+    const onClickFunc = (e: { key: Keys; }) => {
         let address = '';
         switch (e.key) {
             case 'sub1': address = '/profile'; break;
@@ -50,7 +50,8 @@ export const Navbar = () => {
       <Sider width={200} className="site-layout-background">
             <Menu
               mode="inline"
-              onClick={onClick}
+              // @ts-ignore
+              onClick={onClickFunc}
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
               style={{

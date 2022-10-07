@@ -1,13 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// @ts-ignore
-
-import { getNewPostText, getPosts } from '../../../redux/profile-selectors.ts';
-// @ts-ignore
-import {Post } from './Post/Post.tsx';
+import { getNewPostText, getPosts } from '../../../redux/profile-selectors';
+import {Post } from './Post/Post';
 // import styles from './Posts.module.css';
-// @ts-ignore
-import { actions, PostType } from '../../../redux/profile-reducer.ts';
+import { actions, PostType } from '../../../redux/profile-reducer';
 
 
 export const Posts = ( ) => {
@@ -22,7 +18,7 @@ export const Posts = ( ) => {
 
     
 
-    const onPostChange = (e) => {  
+    const onPostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {  
         dispatch(actions.updateNewText(e.target.value))
     };
 

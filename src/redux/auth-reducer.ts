@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 // @ts-ignore
 import { authAPI } from "../API/api.ts";
-import { InferActionsTypes } from "./redux-store";
+import { InferActionsTypes, ThunkType } from "./redux-store";
 
  
 export type InitialStateType = typeof initialState;
@@ -69,7 +69,7 @@ export const getInitialized = () => { //перезагрузка страниц�
 
 
 
-export const getLogined = (email:string, password:string, rememberMe: boolean) => {
+export const getLogined = (email: string, password: string, rememberMe: boolean): ThunkType<ActionsTypes> => {
     return async (dispatch: Dispatch<ActionsTypes>) => {
         let response = await authAPI.loginWithAPI(email, password, rememberMe)
          

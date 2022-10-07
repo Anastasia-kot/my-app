@@ -64,6 +64,7 @@ test('Logined success', async () => {
     const thunk = getLogined('1', '2', false);   //(email:string, password:string, rememberMe: boolean)
     authAPIMock.loginWithAPI.mockReturnValue(Promise.resolve(response))
     authAPIMock.getAuthUserDataWithAPI.mockReturnValue(Promise.resolve(response))
+    // @ts-ignore
     await thunk(dispatchMock);
     expect(dispatchMock).toBeCalledTimes(3);
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setAuthUserData(response.data));   

@@ -1,7 +1,7 @@
-import { StatusSocketType } from './../redux/chat-reducer';
+import { ChatMessageType, StatusSocketType } from './../redux/chat-reducer';
 const subscribers = {
-    'messages-received' :  [],
-    'status-changed' : [] 
+    'messages-received': [] as MessagesReceivedSubscriberType[],
+    'status-changed': [] as StatusChangedSubscriberType[],
 }
 type EventsNamesType = 'messages-received' |  'status-changed'  
 
@@ -21,7 +21,7 @@ const errorHandler = () => {
     notifySubscribersAboutStatus('error')
     console.error('REFRESH PAGE')
 }
-const messageHandler = (e) => {
+const messageHandler = (e: MessageEvent) => {
     const newMessages =  JSON.parse(e.data);
     subscribers['messages-received'].forEach(s=>s(newMessages))
 }
@@ -62,19 +62,23 @@ export const chatAPI = {
         subscribers['messages-received'] = [];
         subscribers['status-changed'] = [];
 
-        ws?.removeEventListener('close', closeHandler);    //cleanUP()
+      
+        cleanUP();  // ws?.removeEventListener('close', closeHandler);   
 
         ws?.close(); 
     },
 
-    subscribe(eventName:EventsNamesType, callback  ) {
+    subscribe(eventName: EventsNamesType, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
+        // @ts-ignore
         subscribers[eventName].push(callback)
         return () => {
+            // @ts-ignore
             subscribers[eventName] = subscribers[eventName].filter(s => s!==callback)
         }
     }, 
 
-    unsubscribe(eventName: EventsNamesType, callback) {
+    unsubscribe(eventName: EventsNamesType, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
+        // @ts-ignore
         subscribers[eventName] = subscribers[eventName].filter(s => s !== callback)
     },
 
@@ -84,4 +88,6 @@ export const chatAPI = {
 
 }
 
- 
+
+type MessagesReceivedSubscriberType = (messages: Array<ChatMessageType>) => void
+type StatusChangedSubscriberType = (status: StatusSocketType) => void

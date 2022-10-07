@@ -3,19 +3,16 @@ import React, { useEffect, useState } from 'react';
 import styles from './ChatPage.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-// @ts-ignore
-import { sendMessage, startMessageListening, stopMessageListening } from '../../redux/chat-reducer.ts';
-// @ts-ignore
-import { RootState  } from '../../redux/redux-store.ts';
-// @ts-ignore
-import { Avatar } from '../common/Avatar/Avatar.tsx';
+import { ChatMessageType, sendMessage, startMessageListening, stopMessageListening } from '../../redux/chat-reducer';
+import { RootState  } from '../../redux/redux-store';
+import { Avatar } from '../common/Avatar/Avatar';
 
 
 export const ChatPage:React.FC<{}> = () => {
  
     const dispatch = useDispatch();
     const status = useSelector((state: RootState) => state.chatPage.status);
-    const messages = useSelector((state: RootState) => state.chatPage.messages);
+    const messages: ChatMessageType[] = useSelector((state: RootState) => state.chatPage.messages);
 
 
     useEffect(() => {  

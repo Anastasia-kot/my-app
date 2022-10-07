@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import styles from './Paginator.module.css';
+let styles = require("./Paginator.module.css");
 
 
 type Props = {

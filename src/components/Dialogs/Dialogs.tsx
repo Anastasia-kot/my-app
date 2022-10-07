@@ -2,18 +2,13 @@ import React, { useEffect } from 'react';
 // @ts-ignore
 import styles from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
-// @ts-ignore
-import {Message} from './Message/Message.tsx';
+import {Message} from './Message/Message';
 import { Navigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// @ts-ignore
-import { actions } from '../../redux/dialogs-reducer.ts';
-// @ts-ignore
-import { getIsAuth, getAuthData } from '../../redux/auth-selectors.ts';
-// @ts-ignore
-import { getDialogsState, getMessagesState, getNewMessageText } from '../../redux/dialogs-selectors.ts';
-// @ts-ignore
-import { getDialogs, getMessages, sendMessage, startDialog, DialogType, MessageType } from '../../redux/dialogs-reducer.ts';
+import { actions } from '../../redux/dialogs-reducer';
+import { getIsAuth, getAuthData } from '../../redux/auth-selectors';
+import { getDialogsState, getMessagesState, getNewMessageText } from '../../redux/dialogs-selectors';
+import { getDialogs, getMessages, sendMessage, startDialog, DialogType, MessageType } from '../../redux/dialogs-reducer';
    
 export const Dialogs = React.memo(() => {
      
@@ -33,8 +28,8 @@ export const Dialogs = React.memo(() => {
 
     useEffect( () => {
         if (URLuserId) {
-            dispatch(startDialog(URLuserId))
-            dispatch(getMessages(URLuserId)) 
+            dispatch(startDialog(+URLuserId))
+            dispatch(getMessages(+URLuserId)) 
         }
         dispatch(getDialogs())
 
@@ -43,10 +38,12 @@ export const Dialogs = React.memo(() => {
 
 
     const sendMessageOnClick = () => {
-        dispatch(sendMessage(URLuserId, newMessageText))
+        if (URLuserId){
+            dispatch(sendMessage(+URLuserId, newMessageText))
+        }
     }
 
-    const onMessageChanged = (e) => {
+    const onMessageChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
          let text = e.target.value;
          dispatch(actions.updateMessageText(text));
     }

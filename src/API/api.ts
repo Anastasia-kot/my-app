@@ -65,7 +65,7 @@ export const profileAPI ={
         return response;
     },
 
-    updateProfilePhotoWithAPI: async (file) => {
+    updateProfilePhotoWithAPI: async (file:any) => {
         const formData = new FormData();
         formData.append('image', file)
 
